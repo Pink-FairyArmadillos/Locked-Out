@@ -1,20 +1,49 @@
-import React from 'react'
+import React from 'react';
+import zxcvbn from "zxcvbn/zxcvbn";
 
-const PasswordStrengthMeter = () => {
-  
+// from this video: https://www.youtube.com/watch?v=tIInwIlf13A -- got to 11:40 mark, not able to npm install bower or zxcvbn packages???!!
+
+const PasswordStrengthMeter = ({ password }) => {
+    const testResult = zxcvbn(password);
+    const passwordScore = (testResult.score * 100) / 4;
+    console.log(passwordScore); // score is 0-4
+    
+    const progressColor = () => {
+        switch(testResult.score){
+            case 0: return '828282';
+            case 1: return '#EA1111';
+            case 2: return '#FFAD00';
+            case 3: return '#9bc158';
+            case 4: return '#00b500';
+            default: return 'none';
+        }
+    }
+
+    const createPasswordLabel = () => {
+        switch(testResult.score){
+            case 0: return 'Very weak';
+            case 1: return 'Weak';
+            case 2: return 'Fair';
+            case 3: return 'Good';
+            case 4: return 'Strong';
+            default: return '';
+        }
+    }
+
     const changePasswordColor = () => ({
-        width: '70%',
-        background: 'red',
+        width: `${passwordScore}%`,
+        background: progressColor(),
         height: '7px'
     })
 
     return (
-        <div>
-            <div className = "progress" style = {{background}}>
-                <div className = "progress=bar" style = {changePasswordColor()}></div>
+        
+        <>
+            <div className = "progress" style={{height: '7px'}}>
+                <div className="progress-bar" style={changePasswordColor()}></div>
             </div>
-        </div>
-
+                <p style={{ color: progressColor()}} >{createPasswordLabel()}</p>
+        </>
     )
 }
 

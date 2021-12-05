@@ -11,16 +11,19 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [signedup, setSignedUp] = useState(false);
+  
 
 
   return (
     <>
     <div>
-        <h2>Pink Fairy Armidallo Password Manager</h2>
+        <h2 className="text-center my-5">Pink Fairy Armidallo Password Manager</h2>
+        <img src="../assets/Mmxarmoredarmadillo.jpg" alt="Badass Armored Pink Fairy Armidallo"></img> // not appearing??
         <hr></hr>
     </div>
 
      <Login setUserLoggedIn = {setUserLoggedIn}/>
+     
     </>
 
   )

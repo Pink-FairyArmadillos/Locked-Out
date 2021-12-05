@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Dashboard from './Dashboard.jsx';
+import PasswordStrengthMeter from './PasswordStrengthMeter.jsx';
 
 const Login = (props) => {
   const [username, setUsername] = useState('');
@@ -38,25 +39,16 @@ const Login = (props) => {
       {!userLoggedIn && (
         <>
           <h2>Please Login</h2>
-          Username:
-          <input
-            name="username"
-            type="text"
-            value={username}
-            onChange={(bananas) => setUsername(bananas.target.value)}
-          ></input>
-          Password:
-          <input
-            type="text"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
-          <button onClick={() => handleLogin(username, password)}>
-            Log in
-          </button>
-          <button onClick={() => handleSignup(username, password)}>
-            Sign up
-          </button>
+          <input className="form-group" placeholder="Username" name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)}></input>
+
+          <br></br>
+
+          <input className="form-group shadow-none" placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+
+          <PasswordStrengthMeter password = {password}/>
+
+          <button  onClick={() => handleLogin(username, password)}> Log in</button>
+          <button  onClick={() => handleSignup(username, password)}>Sign up</button>
         </>
       )}
 
