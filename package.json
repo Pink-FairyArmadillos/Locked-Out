@@ -15,7 +15,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies":{
+  "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-react": "^7.16.0",
@@ -33,23 +33,24 @@
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.5",
     "nodemon": "^2.0.15",
+    "pg": "^8.7.1",
+    "postgres": "^1.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.2",
+    "redux": "^4.1.2",
     "sass": "^1.44.0",
     "sass-loader": "^12.3.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.0.0-rc.6",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.6.0",
-    "react-redux": "^7.2.6",
-    "redux": "^4.1.2",
-    "pg": "^8.7.1",
-    "postgres": "^1.0.2"
+    "webpack-dev-server": "^4.6.0"
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
     "prop-types": "^15.7.2",
+    "react-router": "^6.0.0-beta.8",
     "save-dev": "^0.0.1-security"
   },
   "bugs": {
