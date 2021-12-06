@@ -66,6 +66,7 @@ passwordController.getAllEntries = (req, res, next) => {
 };
 
 passwordController.addEntry = (req, res, next) => {
+  console.log("req.query", req.query);
   const values = [
     req.query.id,
     req.query.urlEntry,

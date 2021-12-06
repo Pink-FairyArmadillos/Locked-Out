@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import ReactDOM from 'react-dom'
-import App from './components/App.jsx';
-
-ReactDOM.render(<App />, document.getElementById('root'));
-=======
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App.jsx";
@@ -28,4 +21,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
->>>>>>> e4fed64bb818c5d050ae11f481d718ebd39140c7

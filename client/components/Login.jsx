@@ -8,16 +8,16 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
 
-  const handleSignup = () => {
-    fetch(`/api/signup?username=${username}&passwordUser=${password}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setUserLoggedIn(data.userExists));
-  };
+  // const handleSignup = () => {
+  //   fetch(`/api/signup?username=${username}&passwordUser=${password}`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => setUserLoggedIn(data.userExists));
+  // };
 
   const handleUserFetch = (data) => {
     setUserLoggedIn(data.userExists);
@@ -101,7 +101,8 @@ const Login = () => {
               marginLeft: "10px",
               borderRadius: "4px",
             }}
-            onClick={() => handleSignup(username, password)}
+            disabled 
+            // onClick={() => handleSignup(username, password)}
           >
             Sign up
           </button>
