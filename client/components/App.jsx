@@ -11,14 +11,15 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [signedup, setSignedUp] = useState(false);
-  
+  // useEffect(() => { document.body.style.backgroundColor = 'lightpink' }, [])
 
 
   return (
     <>
     <div>
-        <h2 className="text-center my-5">Pink Fairy Armidallo Password Manager</h2>
-        <img src="../assets/Mmxarmoredarmadillo.jpg" alt="Badass Armored Pink Fairy Armidallo"></img> // not appearing??
+      <img src="./build/pinkFairyArmidallo.png" alt="Badass Armored PFA"/> // not appearing?
+      <h2 className="text-center my-5">Pink Fairy Armidallo Password Manager</h2>
+        
         <hr></hr>
     </div>
 

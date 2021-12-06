@@ -38,17 +38,17 @@ const Login = (props) => {
     <>
       {!userLoggedIn && (
         <>
-          <h2>Please Login</h2>
-          <input className="form-group" placeholder="Username" name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)}></input>
+          <h2 style={{marginTop: '3px', marginLeft: '10px'}} >Login</h2>
+          <input style={{marginTop: '3px', marginLeft: '10px'}} className="form-group" placeholder="Username" name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)}></input>
 
           <br></br>
 
-          <input className="form-group shadow-none" placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+          <input style={{marginTop: '3px', marginLeft: '10px'}} className="form-group shadow-none" placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
 
           <PasswordStrengthMeter password = {password}/>
 
-          <button  onClick={() => handleLogin(username, password)}> Log in</button>
-          <button  onClick={() => handleSignup(username, password)}>Sign up</button>
+          <button style={{marginTop: '3px', marginLeft: '30px', backgroundColor:'blue', color: 'white', borderRadius: '4px'}} onClick={() => handleLogin(username, password)}> Log in</button>
+          <button  style={{marginTop: '3px', marginLeft: '10px', borderRadius: '4px'}} onClick={() => handleSignup(username, password)}>Sign up</button>
         </>
       )}
 
