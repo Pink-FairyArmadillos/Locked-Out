@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import Dashboard from './Dashboard.jsx';
+import store from '../store';
 
-const Login = (props) => {
+const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-
-  useEffect(() => {
-    console.log('userLoggedIn in App', userLoggedIn);
-  }, [userLoggedIn]);
 
   const handleSignup = () => {
     fetch(`/api/signup?username=${username}&passwordUser=${password}`, {
@@ -19,8 +15,16 @@ const Login = (props) => {
       },
     })
       .then((response) => response.json())
-      .then((data) => setUserLoggedIn(data.userExists));
+      .then((data) => setUserLoggedIn(data.userExists))
   };
+
+  const handleUserFetch = (data) => {
+    setUserLoggedIn(data.userExists)
+    store.dispatch({
+      type: "ADD_USER_ID",
+      payload: data.userID
+    })
+  }
 
   const handleLogin = (username, password) => {
     fetch(`/api/login?username=${username}&passwordUser=${password}`, {
@@ -30,27 +34,27 @@ const Login = (props) => {
       },
     })
       .then((response) => response.json())
-      .then((data) => setUserLoggedIn(data.userExists));
+      .then((data) => handleUserFetch(data))
   };
 
   return (
     <>
       {!userLoggedIn && (
         <>
-          <h2>Please Login</h2>
+          <h2>Please Login/Sign up</h2>
           Username:
           <input
             name="username"
             type="text"
             value={username}
             onChange={(bananas) => setUsername(bananas.target.value)}
-          ></input>
+          />
           Password:
           <input
-            type="text"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          ></input>
+          />
           <button onClick={() => handleLogin(username, password)}>
             Log in
           </button>
@@ -59,43 +63,9 @@ const Login = (props) => {
           </button>
         </>
       )}
-
       {userLoggedIn && <Dashboard />}
     </>
   );
 };
 
 export default Login;
-
-//   setUsername(e.target.value);
-// }
-
-// function onChangePassword(e) {
-//   // setState(prevState => {
-//   //     return {...prevState, password: e.target.value}
-//   // })
-//   setPassword(e.target.value);
-// }
-
-// function signUp(username, password) {
-//   fetch(`/api/login?username=${username})&userPassword=${password}`, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((data) => console.log('data: ', data));
-// }
-
-// function submitLogin(username, password) {
-//   console.log('submitLogin', username, password);
-//   fetch(`/api/login?username=${username}&passwordUser=${password}`, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((data) => setUserLoggedIn(data));
-// }

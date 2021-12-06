@@ -8,7 +8,7 @@ passwordController.getLogin = (req, res, next) => {
         res.locals.userMetaData = {
             userExists: false,
             userAdded: false,
-            userId: null,
+            userID: null,
         };
         for (let i = 0; i < rset.rowCount; i++) {
             if (
@@ -18,10 +18,10 @@ passwordController.getLogin = (req, res, next) => {
                 res.locals.userMetaData = {
                     userExists: true,
                     userAdded: false,
-                    userId: rset.rows[i]._id,
+                    userID: rset.rows[i]._id,
                 };
 
-                res.locals.currentUserId =  rset.rows[i]._id;
+                res.locals.currentUserID =  rset.rows[i]._id;
                 return next();
             }
         }
@@ -42,8 +42,8 @@ return next();
 
 
 passwordController.getSignup = (req, res, next) => {
-    const currId = Number(res.locals.totalUsers) + 1
-    const values = [currId, req.query.username, req.query.passwordUser];
+    const currID = Number(res.locals.totalUsers) + 1
+    const values = [currID, req.query.username, req.query.passwordUser];
     const queryInsertUser =
         'INSERT INTO users (_id, username, password) VALUES($1, $2, $3);';
   
@@ -54,7 +54,7 @@ passwordController.getSignup = (req, res, next) => {
             res.locals.userMetaData = {
                 userExists: true,
                 userAdded: true,
-                userId: currId
+                userID: currID
             };
             return next();
         }) 
@@ -62,7 +62,7 @@ passwordController.getSignup = (req, res, next) => {
 };
 
 passwordController.getAllEntries = (req, res, next) => {
-    const queryGetEntry = `SELECT * FROM entry WHERE user_id=${req.query.userId};`;
+    const queryGetEntry = `SELECT * FROM entry WHERE user_id=${req.query.userID};`;
     db.query(queryGetEntry).then((rset) => {
         res.locals.entries = rset.rows;
         return next();
@@ -73,7 +73,7 @@ passwordController.addEntry = (req, res, next) => {
     const values = [
         req.query.id,
         req.query.urlEntry,
-        req.query.userId,
+        req.query.userID,
         req.query.passwordEntry,
     ];
     const queryInsertUser =
