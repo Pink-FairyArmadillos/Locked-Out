@@ -5,8 +5,9 @@ const apiRouter = require("./routes/api");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(express.static(path.join(__dirname, "../build")));
+app.use(express.static("public"));
+app.get("/public", express.static("public"));
+app.use(express.static(path.resolve(__dirname, "../")));
 
 app.get("/", (req, res) => {
   return res.status(200).json("");
