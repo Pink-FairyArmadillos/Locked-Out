@@ -25,8 +25,16 @@ module.exports = {
                             '@babel/preset-react',
                         ],
                     },
-                },
+                },                
             },
+            {
+                test: /\.(png|jp(e*)g|svg|gif)$/,
+                use: ['file-loader'],
+              },
+              {
+                test: /\.svg$/,
+                use: ['@svgr/webpack'],
+              },
             {
                 test: /\.s?[ac]ss$/i,
                 use: ['style-loader', 'css-loader', 'sass-loader'],
