@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useState, useEffect} from 'react';
 
 const App = () => {
@@ -19,3 +20,16 @@ fetch('/test', {
     );
 }
 export default App;
+=======
+import React from "react";
+import MainContainer from "../components/MainContainer.jsx";
+
+const App = () => {
+  return (
+    <>
+      <MainContainer />
+    </>
+  );
+};
+export default App;
+>>>>>>> e4fed64bb818c5d050ae11f481d718ebd39140c7
