@@ -7,10 +7,8 @@ const Login = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-
-  useEffect(() => {
-    console.log('userLoggedIn in App', userLoggedIn);
-  }, [userLoggedIn]);
+  const [type, setType] = useState();
+  const [passwordState, setPasswordState] = useState();
 
   const handleSignup = () => {
     fetch(`/api/signup?username=${username}&passwordUser=${password}`, {
@@ -22,6 +20,10 @@ const Login = (props) => {
       .then((response) => response.json())
       .then((data) => setUserLoggedIn(data.userExists));
   };
+
+const revealPassword = (e, password) => {
+console.log(e.target.type);
+}
 
   const handleLogin = (username, password) => {
     fetch(`/api/login?username=${username}&passwordUser=${password}`, {
@@ -43,7 +45,10 @@ const Login = (props) => {
 
           <br></br>
 
-          <input style={{marginTop: '3px', marginLeft: '10px'}} className="form-group shadow-none" placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+          <input style={{marginTop: '3px', marginLeft: '10px'}} className="form-group shadow-none" placeholder="Password" type={type} value={password} onChange={(e) => setPassword(e.target.value)}></input>
+
+
+          <button style={{borderRadius: '18px', height: '20px', width: '50px', fontSize: '10px'}} onClick={(passwordState) => setPasswordState(passwordState === "password"?"text": "password")}>Reveal</button>
 
           <PasswordStrengthMeter password = {password}/>
 
