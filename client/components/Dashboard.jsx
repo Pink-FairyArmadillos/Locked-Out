@@ -9,7 +9,7 @@ const Dashboard = () => {
     <div>
       <h3>Dashboard</h3>
       <hr></hr>
-      <label>Current User ID:</label>
+      <label>User ID:</label>
       <span>{userIdFromState.userID}</span>
       <br /> <br />
       <Entries />

@@ -58,25 +58,26 @@ passwordController.getSignup = (req, res, next) => {
 };
 
 passwordController.getAllEntries = (req, res, next) => {
-  const queryGetEntry = `SELECT * FROM entry WHERE user_id=${req.query.userID};`;
-  db.query(queryGetEntry).then((rset) => {
-    res.locals.entries = rset.rows;
+  // const queryGetEntries = `SELECT * FROM entry WHERE user_id=${req.query.userID};`;
+  const queryGetEntries = `SELECT * FROM entry;`;
+  db.query(queryGetEntries).then((rset) => {
+    console.log("rset", rset);
+    res.locals.entries = [...rset.rows];
     return next();
   });
 };
 
 passwordController.addEntry = (req, res, next) => {
-  console.log("req.query", req.query);
+
   const values = [
-    req.query.id,
     req.query.urlEntry,
     req.query.userID,
     req.query.passwordEntry,
   ];
   const queryInsertUser =
-    "INSERT INTO entry (_id, url,user_id, entry_password) VALUES($1, $2, $3, $4) RETURNING *;";
+    "INSERT INTO entry (url,user_id, entry_password) VALUES($1, $2, $3) RETURNING *;";
   db.query(queryInsertUser, values, (rset) => {
-    res.locals.wasSuccessful = true;
+    res.locals.entryAdded = true;
     return next();
   });
 };

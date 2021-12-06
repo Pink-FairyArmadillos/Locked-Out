@@ -1,45 +1,82 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import "../styles.scss";
+import PasswordStrengthMeter from "../components/PasswordStrengthMeter.jsx";
 const Entries = () => {
-    const [url, setURL] = useState('');
-    const [password, setPassword] = useState('');
-    const [entries, setEntries] = useState([]);
+  const [entryURL, setEntryURL] = useState("");
+  const [entryPassword, setEntryPassword] = useState("");
+  const [entries, setEntries] = useState([]);
+  const [passwordState, setPasswordState] = useState("password");
+  const userID = useSelector((state) => state.userID);
 
-    useEffect(() => {
-        console.log(url, password)
-    }, [url, password]);
+  useEffect(() => {
+    fetch(`/api/getAllEntries?userID=${userID}`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => setEntries([...data]));
+  }, []);
 
-    const userID = useSelector((state) => state.userID);
-
-    const handleSaveEntries = () => {
-        fetch(`/api/addEntry?id=6&urlEntry=${url}&userID=${userID}&passwordEntry=${password}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-        })
-            .then((res) => res.json())
-            .then(data => console.log("Successful", data));
-    }
-
-    return (
-        <React.Fragment>
-            <label>Url</label>
-            <input url={url} onChange={(e, url) => setURL(url)}></input>
-            <label>Password</label>
-            <input password={password} onChange={() => setPassword("is setpassword working???")}></input>
-            <button onClick={() => handleSaveEntries()}>Save</button>
-            <table>
-                <th>
-                    <tr>
-
-                    </tr>
-                </th>
-                <tr>
-
-                </tr>
-            </table>
-        </React.Fragment>
+  const handleSaveEntries = () => {
+    fetch(
+      `/api/addEntry?urlEntry=${entryURL}&userID=${userID}&passwordEntry=${entryPassword}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => setEntries(data));
+  };
+  const displayEntries = [];
+  entries?.map((element) => {
+    displayEntries.push(
+      <tr className="tableCell">
+        <td className="tableCell">{element?.url}</td>
+        <td className="tableCell">{element?.entry_password}</td>
+      </tr>
     );
-}
+  });
+  return (
+    <React.Fragment>
+      <label>Url</label>
+      <input value={entryURL} onChange={(e) => setEntryURL(e.target.value)} />
+      <label>Password</label>
+      <input
+        type={passwordState}
+        value={entryPassword}
+        onChange={(e) => setEntryPassword(e.target.value)}
+      />
+      <button onClick={() => handleSaveEntries()}>Save</button>
 
-export default Entries
+      <PasswordStrengthMeter password={entryPassword} />
+
+      <button
+        style={{
+          borderRadius: "18px",
+          height: "20px",
+          width: "50px",
+          fontSize: "10px",
+        }}
+        onClick={() =>
+          setPasswordState(passwordState === "password" ? "text" : "password")
+        }
+      >
+        Reveal
+      </button>
+
+      {entries.length > 0 && (
+        <table>
+          <tr className="tableCell">
+            <td className="tableCell">URL</td>
+            <td className="tableCell">Passwords</td>
+          </tr>
+
+          {displayEntries}
+        </table>
+      )}
+    </React.Fragment>
+  );
+};
+
+export default Entries;

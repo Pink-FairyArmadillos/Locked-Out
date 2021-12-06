@@ -22,12 +22,12 @@ router.post(
   }
 );
 
-router.post("/addEntry", passwordController.addEntry, (req, res) => {
-  return res.status(200).json({ wasSuccessful: res.locals.wasSuccessful });
+router.post("/addEntry", passwordController.addEntry,passwordController.getAllEntries , (req, res) => {
+  return res.status(200).json([...res.locals.entries]);
 });
 
 router.get("/getAllEntries", passwordController.getAllEntries, (req, res) => {
-  return res.status(200).json([...[res.locals.entries]]);
+  return res.status(200).json([...res.locals.entries]);
 });
 
 module.exports = router;
