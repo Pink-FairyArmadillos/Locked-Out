@@ -8,7 +8,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, '../build')));
 
-
 app.get('/', (req, res) => {
   return res.status(200).json("");
 });
