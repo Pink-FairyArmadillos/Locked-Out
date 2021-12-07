@@ -1,0 +1,19 @@
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+table {
+  border: 1px solid black;
+  display:inline-table;
+  margin: 2px;
+}
+
+td .tableCell{
+display:flex;
+width:1em;
+  text-align: right;
+  border: 1px solid black;
+  margin: 2px;
+}
