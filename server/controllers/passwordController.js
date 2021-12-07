@@ -58,8 +58,9 @@ passwordController.getSignup = (req, res, next) => {
 };
 
 passwordController.getAllEntries = (req, res, next) => {
+  console.log(req.query.userID)
   // const queryGetEntries = `SELECT * FROM entry WHERE user_id=${req.query.userID};`;
-  const queryGetEntries = `SELECT * FROM entry;`;
+  const queryGetEntries = `SELECT * FROM entry WHERE user_id=${Number(req.query.userID)};`;
   db.query(queryGetEntries).then((rset) => {
     console.log("rset", rset);
     res.locals.entries = [...rset.rows];

@@ -17,8 +17,6 @@ const Login = () => {
     });
   };
 
-
-
   const handleLogin = (username, password) => {
     fetch(`/api/login?username=${username}&passwordUser=${password}`, {
       method: "GET",
@@ -61,19 +59,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></input>
 
-          {/* <button
-            style={{
-              borderRadius: "18px",
-              height: "20px",
-              width: "50px",
-              fontSize: "10px",
-              marginLeft: "5px"
-            }}
-          >
-            Reveal
-          </button> */}
-
-          <button style={{borderRadius: '18px', height: '20px', width: '50px', fontSize: '10px'}} onClick={() => setPasswordState(passwordState === "password"?"text": "password")}>Reveal</button>
+          <button style={{borderRadius: '8px', height: '2.5em', width: '8em', fontSize: '10px', padding:'0px', marginLeft:'1em'}} onClick={() => setPasswordState(passwordState === "password"?"text": "password")}>Reveal</button>
 
           <PasswordStrengthMeter password={password} />
 

@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import "../styles.scss";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter.jsx";
+import PasswordEntry from "./PasswordEntry.jsx";
+
+
 const Entries = () => {
   const [entryURL, setEntryURL] = useState("");
   const [entryPassword, setEntryPassword] = useState("");
   const [entries, setEntries] = useState([]);
   const [passwordState, setPasswordState] = useState("password");
-  const userID = useSelector((state) => state.userID);
+  let userID = useSelector((state) => state.userID);
 
   useEffect(() => {
     fetch(`/api/getAllEntries?userID=${userID}`, {
@@ -15,7 +18,7 @@ const Entries = () => {
     })
       .then((res) => res.json())
       .then((data) => setEntries([...data]));
-  }, []);
+  }, [userID]);
 
   const handleSaveEntries = () => {
     fetch(
@@ -29,16 +32,17 @@ const Entries = () => {
       .then((data) => setEntries(data));
   };
   const displayEntries = [];
-  entries?.map((element) => {
+  entries?.map((element, index) => {
     displayEntries.push(
       <tr className="tableCell">
         <td className="tableCell">{element?.url}</td>
-        <td className="tableCell">{element?.entry_password}</td>
+        {/* <td className="tableCell">{element?.entry_password}</td> */}
+        <td className="tableCell"><PasswordEntry value={element?.entry_password}/></td>
       </tr>
     );
   });
   return (
-    <React.Fragment>
+    <>
       <label>Url</label>
       <input value={entryURL} onChange={(e) => setEntryURL(e.target.value)} />
       <label>Password</label>
@@ -51,7 +55,7 @@ const Entries = () => {
 
       <PasswordStrengthMeter password={entryPassword} />
 
-      <button
+      {/* <button
         style={{
           borderRadius: "18px",
           height: "20px",
@@ -63,19 +67,20 @@ const Entries = () => {
         }
       >
         Reveal
-      </button>
+      </button> */}
 
       {entries.length > 0 && (
         <table>
           <tr className="tableCell">
             <td className="tableCell">URL</td>
             <td className="tableCell">Passwords</td>
+            
           </tr>
 
           {displayEntries}
         </table>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
