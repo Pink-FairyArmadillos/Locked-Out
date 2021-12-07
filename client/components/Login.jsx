@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Dashboard from "./Dashboard.jsx";
 import store from "../store";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter.jsx";
@@ -7,17 +7,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-
-  const handleSignup = () => {
-    fetch(`/api/signup?username=${username}&passwordUser=${password}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setUserLoggedIn(data.userExists));
-  };
+  const [passwordState, setPasswordState] = useState('password');
 
   const handleUserFetch = (data) => {
     setUserLoggedIn(data.userExists);
@@ -64,21 +54,12 @@ const Login = () => {
             style={{ marginTop: "3px", marginLeft: "10px" }}
             className="form-group shadow-none"
             placeholder="Password"
-            type="password"
+            type={passwordState}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></input>
 
-          <button
-            style={{
-              borderRadius: "18px",
-              height: "20px",
-              width: "50px",
-              fontSize: "10px",
-            }}
-          >
-            Reveal
-          </button>
+          <button style={{borderRadius: '8px', height: '2.5em', width: '8em', fontSize: '10px', padding:'0px', marginLeft:'1em'}} onClick={() => setPasswordState(passwordState === "password"?"text": "password")}>Reveal</button>
 
           <PasswordStrengthMeter password={password} />
 
@@ -101,13 +82,13 @@ const Login = () => {
               marginLeft: "10px",
               borderRadius: "4px",
             }}
-            onClick={() => handleSignup(username, password)}
+            disabled 
+            // onClick={() => handleSignup(username, password)}
           >
             Sign up
           </button>
         </>
       )}
-
       {userLoggedIn && <Dashboard />}
     </>
   );

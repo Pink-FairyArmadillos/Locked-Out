@@ -28,15 +28,15 @@ const PasswordStrengthMeter = ({ password }) => {
   const createPasswordLabel = () => {
     switch (testResult.score) {
       case 0:
-        return "Very weak";
+        return "";
       case 1:
-        return "Weak";
+        return "Weak - easy to crack";
       case 2:
-        return "Fair";
+        return "Fair - you can do better";
       case 3:
-        return "Good";
+        return "Good - just a bit better";
       case 4:
-        return "Strong";
+        return "Strong - nice job!";
       default:
         return "";
     }
@@ -54,7 +54,7 @@ const PasswordStrengthMeter = ({ password }) => {
         className="progress"
         style={{
           height: "10px",
-          width: "183px",
+          width: "150px",
           marginTop: "3px",
           marginLeft: "10px",
         }}
