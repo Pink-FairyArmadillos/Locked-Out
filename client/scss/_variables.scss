@@ -1,1 +1,17 @@
+// Default colors
+$background: #f0f0f0;
+$primary-foreground: #373737;
+$secondary-foreground: #5d5d5d;
+$tertiary-foreground: #959595;
 
+// Dark mode colors
+$background-dark: #2d2d2d;
+$primary-foreground-dark: #ffffff;
+$secondary-foreground-dark: #f0f0f0;
+$tertiary-foreground-dark: #adaea3;
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto+Mono&family=Work+Sans&display=swap');
+$font-sans-serif: 'Work Sans', sans-serif;
+$font-monospace: 'Roboto Mono', monospace;
+$font-logo: 'Black Ops One', cursive;

@@ -1,5 +1,44 @@
 @import '_variables';
 
+body {
+  margin: 0;
+  background-color: $background;
+  color: $primary-foreground;
+  font-family: $font-sans-serif;
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-dark;
+    color: $primary-foreground-dark;
+  }
+}
+
+.center-content {
+  max-width: 650px;
+  margin: auto;
+  border: 1px solid black;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.vault-entry-container {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(200px, 1fr));
+  grid-gap: 10px;
+}
+
+.vault-entry {
+  border: 1px solid $primary-foreground;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid $primary-foreground-dark;
+  }
+
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+#logo {
+  font-family: $font-logo;
+  font-size: 3rem;
+}
+
 #logo-image {
   margin-top: 3px;
   height: 4em;
@@ -55,8 +94,8 @@ table {
 }
 
 td .tableCell{
-display:flex;
-width:1em;
+  display:flex;
+  width:1em;
   text-align: right;
   border: 1px solid black;
   margin: 2px;
