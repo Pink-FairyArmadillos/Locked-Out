@@ -8,6 +8,8 @@ import MainContainer from "../client/components/MainContainer.jsx";
 import { Provider } from "react-redux";
 import store from "./store";
 
+import "./scss/application.scss";
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
