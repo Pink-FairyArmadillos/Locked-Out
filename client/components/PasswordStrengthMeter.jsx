@@ -48,6 +48,7 @@ const PasswordStrengthMeter = ({ password }) => {
     height: "10px",
   });
 
+  //
   return (
     <>
       <div

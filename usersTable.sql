@@ -1,13 +1,12 @@
 DROP TABLE users;
 CREATE TABLE users (
-    _id SERIAL NOT NULL,  
+    _id SERIAL NOT NULL PRIMARY KEY,  
     username VARCHAR,
-    password VARCHAR,
+    password VARCHAR
 );
 
-INSERT INTO users (url, username, password)
+INSERT INTO users (username, password)
 VALUES (
-    'www.google.com',
-    1,
+    'test',
     'Password123'
-  ),
+  );
