@@ -6,6 +6,7 @@ import PasswordEntry from "./PasswordEntry.jsx";
 
 
 const Entries = () => {
+  const [entryUserName, setEntryUserName] = useState("");
   const [entryURL, setEntryURL] = useState("");
   const [entryPassword, setEntryPassword] = useState("");
   const [entries, setEntries] = useState([]);
@@ -22,7 +23,7 @@ const Entries = () => {
 
   const handleSaveEntries = () => {
     fetch(
-      `/api/addEntry?urlEntry=${entryURL}&userID=${userID}&passwordEntry=${entryPassword}`,
+      `/api/addEntry?urlEntry=${entryURL}&userName=${entryUserName}&userID=${userID}&passwordEntry=${entryPassword}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -36,22 +37,43 @@ const Entries = () => {
     displayEntries.push(
       <tr className="tableCell">
         <td className="tableCell">{element?.url}</td>
+        <td className="tableCell">{element?.entry_username}</td>
         {/* <td className="tableCell">{element?.entry_password}</td> */}
         <td className="tableCell"><PasswordEntry value={element?.entry_password}/></td>
       </tr>
     );
   });
   return (
-    <>
-      <label>Url</label>
-      <input value={entryURL} onChange={(e) => setEntryURL(e.target.value)} />
-      <label>Password</label>
-      <input
-        type={passwordState}
-        value={entryPassword}
-        onChange={(e) => setEntryPassword(e.target.value)}
-      />
-      <button onClick={() => handleSaveEntries()}>Save</button>
+    // from lines 45-56, create new entries field
+    <> 
+      <form>
+        <label>Url
+          <input 
+            value={entryURL} 
+            onChange={(e) => setEntryURL(e.target.value)} 
+            required/>
+        </label>
+        <label>Username
+          <input 
+            value={entryUserName} 
+            onChange={(e) => setEntryUserName(e.target.value)} 
+            required/>
+        </label>
+        <label>Password
+          <input
+            type={passwordState}
+            value={entryPassword}
+            onChange={(e) => setEntryPassword(e.target.value)} 
+            required/>
+        </label>
+        <button onClick={(event) => {
+          event.preventDefault();
+          handleSaveEntries()
+          }}>Save</button>
+      </form>
+
+      
+      
 
       <PasswordStrengthMeter password={entryPassword} />
 
