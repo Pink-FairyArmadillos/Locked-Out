@@ -29,9 +29,9 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div>
       {!userLoggedIn && (
-        <>
+        <div className="loginPage">
           <img
             style={{ marginTop: "3px", height: "4em", width: "4em" }}
             src="pinkFairyArmidallo.png"
@@ -39,7 +39,7 @@ const Login = () => {
           />
           <h2 style={{ marginTop: "3px", marginLeft: "10px" }}>Login</h2>
           <input
-            style={{ marginTop: "3px", marginLeft: "10px" }}
+            style={{ marginTop: "3px", marginLeft: "10px"}}
             className="form-group"
             placeholder="Username"
             name="username"
@@ -87,10 +87,10 @@ const Login = () => {
           >
             Sign up
           </button>
-        </>
+        </div>
       )}
       {userLoggedIn && <Dashboard />}
-    </>
+    </div>
   );
 };
 

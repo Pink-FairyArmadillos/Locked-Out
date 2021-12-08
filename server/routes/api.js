@@ -30,4 +30,20 @@ router.get("/getAllEntries", passwordController.getAllEntries, (req, res) => {
   return res.status(200).json([...res.locals.entries]);
 });
 
+router.patch('/patchEntry',
+  passwordController.updateEntry,
+ (req, res) => {
+   return res.status(200).json([...res.locals.entries]);
+ });
+
+
+router.delete('/deleteEntry',
+  passwordController.deleteEntry, 
+  (req, res) => {
+    return res.status(200);
+  })
+
+
+
+
 module.exports = router;

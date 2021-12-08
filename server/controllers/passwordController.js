@@ -72,15 +72,42 @@ passwordController.addEntry = (req, res, next) => {
 
   const values = [
     req.query.urlEntry,
+    req.query.userName,
     req.query.userID,
     req.query.passwordEntry,
   ];
   const queryInsertUser =
-    "INSERT INTO entry (url,user_id, entry_password) VALUES($1, $2, $3) RETURNING *;";
+    "INSERT INTO entry (urlentry, username, userid, passwordentry) VALUES($1, $2, $3, $4) RETURNING *;";
   db.query(queryInsertUser, values, (rset) => {
     res.locals.entryAdded = true;
     return next();
   });
 };
+
+passwordController.updateEntry = (req, res, next) => {
+  const updatedValues = [
+    req.query.urlEntry,
+    req.query.userName,
+    req.query.userID,
+    req.query.passwordEntry
+  ];
+  const queryUpdateEntry = "UPDATE entry SET(urlentry, username, userid, passwordentry) VALUES($1, $2, $3, $4) WHERE (urlentry, userid) VALUES($1, $3)";
+  db.query(queryUpdateEntry, updatedValues, (rset) => {
+    return next();
+  });
+}
+
+passwordController.deleteEntry = (req, res, next) => {
+  const deletedValues = [
+    req.query.entryURL = '',
+    req.query.entryUserName = '',
+    req.query.userID,
+    req.query.entryPassword =''
+  ];
+  const queryDeleteEntry = "DELETE FROM entry WHERE (id) VALUE $3;";
+  db.query(queryDeleteEntry, deletedValues, (rset) => {
+    return next();
+  });
+}
 
 module.exports = passwordController;
