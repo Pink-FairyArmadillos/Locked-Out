@@ -8,7 +8,7 @@ const PasswordEntry = (props) => {
     const [passwordType, setPasswordType] = useState('password');
     
     return (
-      <>
+      <div>
         <input
           className="form-group shadow-none form-item"
           readOnly="true"
@@ -24,7 +24,7 @@ const PasswordEntry = (props) => {
         >
           Reveal
         </button>
-      </>
+      </div>
     );
 };
 
