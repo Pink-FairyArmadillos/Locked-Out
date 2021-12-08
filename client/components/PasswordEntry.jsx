@@ -8,7 +8,7 @@ const PasswordEntry = (props) => {
     const [passwordType, setPasswordType] = useState('password');
     
     return (
-      <>
+      <div>
         <input
           style={{ marginTop: "3px", marginLeft: "10px" }}
           className="form-group shadow-none"
@@ -30,7 +30,7 @@ const PasswordEntry = (props) => {
         >
           Reveal
         </button>
-      </>
+      </div>
     );
 };
 
