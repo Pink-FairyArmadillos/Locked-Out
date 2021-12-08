@@ -18,7 +18,7 @@ app.use("/api", apiRouter);
 
 //local error handler
 app.use((req, res) => {
-  console.log("404: body was " + req.query);
+  console.log(req.query);
   res.status(404).send("error page not found with body: " + req.body);
 })
 

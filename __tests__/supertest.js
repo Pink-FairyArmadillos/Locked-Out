@@ -72,11 +72,11 @@ describe("Route integration", () => {
   });
 
   //post test goes here
-  xdescribe("/api/signup", () => {
+  describe("/api/signup", () => {
     describe("POST", () => {
       it("responds with 200 status and application/json content type", () => {
         return request(server)
-          .get("/api/signup")
+          .post("/api/signup")
           .query({username: "Regis", passwordUser: "tarotcards"})
           .expect("Content-Type", /text\/html/)
           .expect(200);
@@ -84,7 +84,7 @@ describe("Route integration", () => {
 
       it('parses an object from the response to signup', () => {
         return request(server)
-          .get("/api/signup")
+          .post("/api/signup")
           .query({username: "Regis", passwordUser: "tarotcards"})
           .expect("Content-Type", /text\/html/)
           .expect(200)
@@ -100,7 +100,7 @@ describe("Route integration", () => {
     describe("POST", () => {
       it("responds with 200 status and application/json content type", () => {
         return request(server)
-          .get("/api/addEntry")
+          .post("/api/addEntry")
           .query({urlEntry: "www.hackme.com", userID: 3, passwordEntry: "hunter2"})
         //   .expect("Content-Type", /json/)
           .expect(200);
@@ -108,7 +108,7 @@ describe("Route integration", () => {
 
       it('parses an array from the response to login', () => {
         return request(server)
-          .get("/api/addEntry")
+          .post("/api/addEntry")
           .query({urlEntry: "www.hackme.com", userID: 3, passwordEntry: "hunter2"})
         //   .expect("Content-Type", /json/)
           .expect(200)
@@ -120,11 +120,11 @@ describe("Route integration", () => {
   });
 
   //delete test goes here
-  xdescribe("/api/deleteEntry", () => {
+  describe("/api/deleteEntry", () => {
     describe("DELETE", () => {
       it("responds with 200 status and application/json content type", () => {
         return request(server)
-          .get("/api/addEntry")
+          .delete("/api/deleteEntry")
         //   .expect("Content-Type", /json/)
           .expect(200);
       });
