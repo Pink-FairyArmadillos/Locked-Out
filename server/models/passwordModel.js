@@ -2,7 +2,7 @@ const { Pool } = require("pg");
 require('dotenv').config();
 const process = require('process');
 
-const pool
+let pool;
 //check for the test environment
 if (process.env.NODE_ENV === 'test') {
   pool = new Pool({
