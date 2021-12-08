@@ -10,20 +10,14 @@ const PasswordEntry = (props) => {
     return (
       <div>
         <input
-          style={{ marginTop: "3px", marginLeft: "10px" }}
-          className="form-group shadow-none"
+          className="form-group shadow-none form-item"
           readOnly="true"
           type={passwordType}
           value={passwordState}
           onChange={(e) => setPasswordState(e.target.value)}
         ></input>
         <button
-          style={{
-            borderRadius: "18px",
-            height: "20px",
-            width: "50px",
-            fontSize: "10px",
-          }}
+          id="vault-password-reveal-button"
           onClick={() =>
             setPasswordType(passwordType === "password" ? "text" : "password")
           }

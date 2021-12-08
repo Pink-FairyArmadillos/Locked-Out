@@ -42,6 +42,29 @@ describe("Route integration", () => {
     });
   });
 
+
+  //test the route, then check the json object on the response
+  describe("/api/getAllEntries", () => {
+    describe("GET", () => {
+      it("responds with 200 status and application/json content type", () => {
+        return request(server)
+          .get("/api/getAllEntries")
+          .expect("Content-Type", /json/)
+          .expect(200);
+      });
+
+      it('parses an array from the response to getAllEntries', () => {
+        return request(server)
+          .get("/api/getAllEntries")
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then((res) => {
+            expect(Array.isArray(res.locals.entries)).toEqual(true);
+          });
+      });
+    });
+  });
+
   //post test goes here
   describe("/api/signup", () => {
     describe("POST", () => {
@@ -87,7 +110,14 @@ describe("Route integration", () => {
   });
 
   //delete test goes here
-
-
-  //test signup goes here
+  describe("/api/deleteEntry", () => {
+    describe("DELETE", () => {
+      it("responds with 200 status and application/json content type", () => {
+        return request(server)
+          .get("/api/addEntry")
+        //   .expect("Content-Type", /json/)
+          .expect(200);
+      });
+    });
+  });
 });
