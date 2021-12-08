@@ -8,14 +8,17 @@ router.get("/", (req, res) => {
   return res.status(200).json("");
 });
 
-router.get("/login", passwordController.getLogin, (req, res) => {
+// login to account
+router.post("/login", 
+passwordController.getLogin, 
+passwordController.setSessionCookie,
+(req, res) => {
   return res.status(200).json({ ...res.locals.userMetaData });
 });
 
+// create an account
 router.post(
   "/signup",
-  passwordController.getLogin,
-  passwordController.getTotalUsers,
   passwordController.getSignup,
   (req, res) => {
     return res.status(200).json({ ...res.locals.userMetaData });

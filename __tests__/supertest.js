@@ -22,18 +22,20 @@ describe("Route integration", () => {
   });
 
   describe("/api/login", () => {
-    describe("GET", () => {
+    describe("POST", () => {
       it("responds with 200 status and application/json content type", () => {
         return request(server)
-          .get("/api/login")
-          .expect("Content-Type", /json/)
+          .post("/api/login")
+          .send({username:'test', passwordUser: 'Password123'})
+          // .expect("Content-Type", /json/)
           .expect(200);
       });
 
       it('parses an object from the response to login', () => {
         return request(server)
-          .get("/api/login")
-          .expect("Content-Type", /json/)
+          .post("/api/login")
+          .send({username:'test', passwordUser: 'Password123'})
+          // .expect("Content-Type", /json/)
           .expect(200)
           .then((res) => {
             expect(typeof res.body).toEqual("object");
@@ -77,16 +79,14 @@ describe("Route integration", () => {
       it("responds with 200 status and application/json content type", () => {
         return request(server)
           .post("/api/signup")
-          .query({username: "Regis", passwordUser: "tarotcards"})
-          .expect("Content-Type", /text\/html/)
+          .send({username: "Regis", passwordUser: "tarotcards"})
           .expect(200);
       });
 
       it('parses an object from the response to signup', () => {
         return request(server)
           .post("/api/signup")
-          .query({username: "Regis", passwordUser: "tarotcards"})
-          .expect("Content-Type", /text\/html/)
+          .send({username: "Regis", passwordUser: "tarotcards"})
           .expect(200)
           .then((res) => {
             expect(typeof res.body).toEqual("object"); //update when we implement signup
@@ -102,7 +102,6 @@ describe("Route integration", () => {
         return request(server)
           .post("/api/addEntry")
           .query({urlEntry: "www.hackme.com", userID: 3, passwordEntry: "hunter2"})
-        //   .expect("Content-Type", /json/)
           .expect(200);
       });
 
@@ -113,14 +112,14 @@ describe("Route integration", () => {
         //   .expect("Content-Type", /json/)
           .expect(200)
           .then((res) => {
-            expect(isArray(res.body)).toEqual(true);
+            expect(Array.isArray(res.body)).toEqual(true);
           });
       });
     });
   });
 
   //delete test goes here
-  describe("/api/deleteEntry", () => {
+  xdescribe("/api/deleteEntry", () => {
     describe("DELETE", () => {
       it("responds with 200 status and application/json content type", () => {
         return request(server)
