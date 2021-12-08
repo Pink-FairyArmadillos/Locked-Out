@@ -7,6 +7,18 @@ const PasswordEntry = (props) => {
     const [passwordState, setPasswordState] = useState(props.value);
     const [passwordType, setPasswordType] = useState('password');
     
+    const handleDeleteEntries = () => {
+      fetch(
+        `/api/deleteEntry?urlEntry=${props.entryURL}&userName=${props.entryUserName}&userID=${props.userID}&passwordEntry=${props.entryPassword}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => props.setEntries(data));
+    };
+    
     return (
       <>
         <input
@@ -29,6 +41,19 @@ const PasswordEntry = (props) => {
           }
         >
           Reveal
+        </button>
+        <button
+          style={{
+            borderRadius: "18px",
+            height: "20px",
+            width: "50px",
+            fontSize: "10px",
+          }}
+          onClick={() =>
+            handleDeleteEntries()
+          }
+        >
+          Delete
         </button>
       </>
     );

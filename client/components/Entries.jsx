@@ -39,37 +39,48 @@ const Entries = () => {
         <td className="tableCell">{element?.url}</td>
         <td className="tableCell">{element?.entry_username}</td>
         {/* <td className="tableCell">{element?.entry_password}</td> */}
-        <td className="tableCell"><PasswordEntry value={element?.entry_password}/></td>
+        <td className="tableCell">
+          <PasswordEntry 
+            value={element?.entry_password} 
+            setEntries={setEntries}
+            entryURL={entryURL}
+            entryUserName={entryUserName}
+            entryPassword={entryPassword}
+            userID={userID}/>
+        </td>
       </tr>
     );
   });
   return (
     // from lines 45-56, create new entries field
-    <> 
-      <form>
+    <>
+      <form onSubmit={(event) => {
+        event.preventDefault();
+        handleSaveEntries()
+        }}>
         <label>Url
-          <input 
-            value={entryURL} 
-            onChange={(e) => setEntryURL(e.target.value)} 
-            required/>
-        </label>
-        <label>Username
-          <input 
-            value={entryUserName} 
-            onChange={(e) => setEntryUserName(e.target.value)} 
-            required/>
-        </label>
-        <label>Password
           <input
-            type={passwordState}
-            value={entryPassword}
-            onChange={(e) => setEntryPassword(e.target.value)} 
-            required/>
-        </label>
-        <button onClick={(event) => {
-          event.preventDefault();
-          handleSaveEntries()
-          }}>Save</button>
+            required='required'
+            type='text'
+            value={entryURL}
+            onChange={(e) => setEntryURL(e.target.value)}/>
+      </label>
+      <label>Username
+        <input
+          required='required'
+          type='text'
+          value={entryUserName}
+          onChange={(e) => setEntryUserName(e.target.value)}/>
+      </label>
+      <label>Password
+        <input
+          required='required'
+          type='text'
+          value={entryPassword}
+          onChange={(e) => setEntryPassword(e.target.value)}/>
+      </label>
+      <input type="submit" value="Save">
+      </input>
       </form>
 
       
@@ -95,6 +106,7 @@ const Entries = () => {
         <table>
           <tr className="tableCell">
             <td className="tableCell">URL</td>
+            <td className="tableCell">Username</td>
             <td className="tableCell">Passwords</td>
             
           </tr>
