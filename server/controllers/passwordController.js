@@ -2,6 +2,7 @@ const db = require("../models/passwordModel");
 
 const passwordController = {};
 
+//rewrite login to query DB for user/password combo instead of the for loop?
 passwordController.getLogin = (req, res, next) => {
   const queryGetLogin = "SELECT * FROM users";
   db.query(queryGetLogin).then((rset) => {
@@ -69,7 +70,8 @@ passwordController.getAllEntries = (req, res, next) => {
 };
 
 passwordController.addEntry = (req, res, next) => {
-
+  console.log('reached addEntry');
+  console.log(req.query);
   const values = [
     req.query.urlEntry,
     req.query.userID,

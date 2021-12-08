@@ -22,7 +22,10 @@ router.post(
   }
 );
 
-router.post("/addEntry", passwordController.addEntry,passwordController.getAllEntries , (req, res) => {
+router.post("/addEntry", 
+  passwordController.addEntry,
+  passwordController.getAllEntries , 
+  (req, res) => {
   return res.status(200).json([...res.locals.entries]);
 });
 
