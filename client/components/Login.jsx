@@ -33,14 +33,13 @@ const Login = () => {
       {!userLoggedIn && (
         <>
           <img
-            style={{ marginTop: "3px", height: "4em", width: "4em" }}
+            id="logo-image"
             src="pinkFairyArmidallo.png"
             alt="Badass Armored PFA"
           />
-          <h2 style={{ marginTop: "3px", marginLeft: "10px" }}>Login</h2>
+          <h2 className="form-item">Login</h2>
           <input
-            style={{ marginTop: "3px", marginLeft: "10px" }}
-            className="form-group"
+            className="form-group form-item"
             placeholder="Username"
             name="username"
             type="text"
@@ -51,38 +50,29 @@ const Login = () => {
           <br></br>
 
           <input
-            style={{ marginTop: "3px", marginLeft: "10px" }}
-            className="form-group shadow-none"
+            className="form-group shadow-none form-item"
             placeholder="Password"
             type={passwordState}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></input>
 
-          <button style={{borderRadius: '8px', height: '2.5em', width: '8em', fontSize: '10px', padding:'0px', marginLeft:'1em'}} onClick={() => setPasswordState(passwordState === "password"?"text": "password")}>Reveal</button>
+          <button
+            id="master-password-reveal-button"
+            onClick={() => setPasswordState(passwordState === "password"?"text": "password")}>Reveal</button>
 
           <PasswordStrengthMeter password={password} />
 
           <button
-            style={{
-              marginTop: "3px",
-              marginLeft: "30px",
-              backgroundColor: "blue",
-              color: "white",
-              borderRadius: "4px",
-            }}
+            id="login-button"
             onClick={() => handleLogin(username, password)}
           >
             {" "}
             Log in
           </button>
           <button
-            style={{
-              marginTop: "3px",
-              marginLeft: "10px",
-              borderRadius: "4px",
-            }}
-            disabled 
+            id="signup-button"
+            disabled
             // onClick={() => handleSignup(username, password)}
           >
             Sign up
