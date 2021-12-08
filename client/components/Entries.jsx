@@ -36,16 +36,15 @@ const Entries = () => {
   entries?.map((element, index) => {
     displayEntries.push(
       <tr className="tableCell">
-        <td className="tableCell">{element?.url}</td>
-        <td className="tableCell">{element?.entry_username}</td>
+        <td className="tableCell">{element?.url}</td> {/* need to update to .urlentry to match backend */}
+        {/* <td className="tableCell">{element?.username}</td> */}
         {/* <td className="tableCell">{element?.entry_password}</td> */}
         <td className="tableCell">
           <PasswordEntry 
-            value={element?.entry_password} 
+            entryPassword={element?.entry_password} 
             setEntries={setEntries}
-            entryURL={entryURL}
-            entryUserName={entryUserName}
-            entryPassword={entryPassword}
+            entryURL={element?.url}
+            entryUserName={element?.username}
             userID={userID}/>
         </td>
       </tr>
@@ -64,21 +63,23 @@ const Entries = () => {
             type='text'
             value={entryURL}
             onChange={(e) => setEntryURL(e.target.value)}/>
-      </label>
-      <label>Username
-        <input
-          required='required'
-          type='text'
-          value={entryUserName}
-          onChange={(e) => setEntryUserName(e.target.value)}/>
-      </label>
-      <label>Password
-        <input
-          required='required'
-          type='text'
-          value={entryPassword}
-          onChange={(e) => setEntryPassword(e.target.value)}/>
-      </label>
+            {/* we technically don't need onChange for URL because we're not doing anything with it */}
+        </label>
+        <label>Username
+          <input
+            required='required'
+            type='text'
+            value={entryUserName}
+            onChange={(e) => setEntryUserName(e.target.value)}/>
+            {/* we technically don't need onChange for username because we're not doing anything with it */}
+        </label>
+        <label>Password
+          <input
+            required='required'
+            type='text'
+            value={entryPassword}
+            onChange={(e) => setEntryPassword(e.target.value)}/>
+        </label>
       <input type="submit" value="Save">
       </input>
       </form>
@@ -108,7 +109,6 @@ const Entries = () => {
             <td className="tableCell">URL</td>
             <td className="tableCell">Username</td>
             <td className="tableCell">Passwords</td>
-            
           </tr>
 
           {displayEntries}
