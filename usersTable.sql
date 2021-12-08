@@ -1,7 +1,7 @@
 DROP TABLE users;
 CREATE TABLE users (
     _id SERIAL NOT NULL PRIMARY KEY,  
-    username VARCHAR,
+    username VARCHAR UNIQUE,
     passcode VARCHAR,
     session_id uuid
 );

@@ -1,4 +1,5 @@
 const db = require("../models/passwordModel");
+const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 
 const passwordController = {};
@@ -8,24 +9,30 @@ passwordController.getLogin = (req, res, next) => {
   console.log("Username: ", req.body.username);
   console.log("Password: ", req.body.passwordUser);
   const queryGetLogin =
-    "SELECT * FROM users WHERE username=$1 AND passcode=$2;";
-  const value = [req.body.username, req.body.passwordUser];
+    "SELECT * FROM users WHERE username=$1;";
+  const value = [req.body.username];
   db.query(queryGetLogin, value)
     .then((rset) => {
       if (!rset.rows.length) {
+        return next(new Error('Username not found'))
+      }
+      const hash = rset.rows[0].passcode;
+      if (bcrypt.compareSync(req.body.passwordUser, hash)) {
+        console.log('password is correct')
         res.locals.userMetaData = {
           userExists: false,
           userAdded: false,
           userID: null,
         };
+        return next();
       } else {
         res.locals.userMetaData = {
           userExists: true,
           userAdded: false,
           userID: rset.rows[0]._id,
         };
+        return next(new Error('Password was incorrect'));
       }
-      return next();
     })
     .catch((err) => {
       console.error(err);
@@ -33,16 +40,9 @@ passwordController.getLogin = (req, res, next) => {
     });
 };
 
-// passwordController.getTotalUsers = (req, res, next) => {
-//   const queryGetTotal = "SELECT COUNT(username) FROM users;";
-//   db.query(queryGetTotal).then((rset) => {
-//     res.locals.totalUsers = Number(rset.rows[0].count);
-//     return next();
-//   });
-// };
-
 // create user in DB
 passwordController.getSignup = (req, res, next) => {
+  const hash = bcrypt.hashSync(req.body.passwordUser, 10)
   console.log("Username: ", req.body.username);
   console.log("Password: ", req.body.passwordUser);
   //check to see if username and password have been entered
@@ -50,8 +50,7 @@ passwordController.getSignup = (req, res, next) => {
     return next(
       new Error("Please create an account with correct username and password")
     );
-  // const currID = Number(res.locals.totalUsers) + 1;
-  const values = [req.body.username, req.body.passwordUser];
+  const values = [req.body.username, hash];
   const queryInsertUser =
     "INSERT INTO users (username, passcode) VALUES($1, $2);";
 
