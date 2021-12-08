@@ -71,13 +71,15 @@ passwordController.getAllEntries = (req, res, next) => {
 passwordController.addEntry = (req, res, next) => {
 
   const values = [
+    // we need to add another property "userName"
     req.query.urlEntry,
     req.query.userName,
     req.query.userID,
     req.query.passwordEntry,
   ];
   const queryInsertUser =
-    "INSERT INTO entry (urlentry, username, userid, passwordentry) VALUES($1, $2, $3, $4) RETURNING *;";
+    // we need
+    "INSERT INTO entry (url,user_id, entry_password) VALUES($1, $2, $3) RETURNING *;";
   db.query(queryInsertUser, values, (rset) => {
     res.locals.entryAdded = true;
     return next();
