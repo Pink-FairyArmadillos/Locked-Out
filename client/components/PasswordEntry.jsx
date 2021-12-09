@@ -9,7 +9,6 @@ const PasswordEntry = (props) => {
   const [urlEntry, setURLState] = useState(props.url); // need new props
   const [passwordType, setPasswordType] = useState('password');
   const [readOnlyType, setReadOnlyType] = useState(true);
-  // const [entryPassword, setEntryPassword] = useState("");
   
   let userID = useSelector((state) => state.userID);
 
@@ -18,14 +17,12 @@ const PasswordEntry = (props) => {
       setReadOnlyType(false);
     } else {
       setReadOnlyType(true);
-      // setPasswordState()
       console.log(JSON.stringify({
         urlEntry,
         userID,
         entryID,
         passwordEntry: passwordState
       }));
-      //fetch request
       fetch('/api/updateEntry', {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
@@ -37,7 +34,7 @@ const PasswordEntry = (props) => {
         })
       })
         .then((response) => response.json())
-        // .then((data) => handleUserFetch(data))
+        // .then((data) => props.setEntries(data))
         .catch((err) => console.log(err));
     }
   }
@@ -48,10 +45,10 @@ const PasswordEntry = (props) => {
     fetch('/api/deleteEntry', {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({entryID})
+      body: JSON.stringify({userID, entryID})
     })
     .then(response => response.json())
-    // .then((data) => handleUserFetch(data))
+    .then((data) => props.setEntries(data))
     .catch((err) => console.log(err));
   }
 
