@@ -32,7 +32,6 @@ const Entries = () => {
   };
   const displayEntries = [];
   entries?.map((element, index) => {
-    // console.log(element);
     displayEntries.push(
       <tr className="tableCell">
         <td className="tableCell">{element?.url}</td>

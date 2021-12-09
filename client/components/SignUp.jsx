@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Dashboard from './Dashboard.jsx';
 import Logo from './Logo.jsx';
 import store from '../store';
@@ -108,8 +108,9 @@ const SignUp = () => {
           <button
             className="primary-button"
             onClick={() => handleSignUp(username, password, confirmPassword)}>
-            Sign up
+            Create Account
           </button>
+          <Link to="/login" className="primary-button">Login Instead</Link>
         </div>
       </div>
     </div>
