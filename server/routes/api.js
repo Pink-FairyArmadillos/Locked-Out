@@ -32,6 +32,20 @@ router.post("/addEntry",
   return res.status(200).json([...res.locals.entries]);
 });
 
+router.put("/updateEntry", 
+  passwordController.updateEntry,
+  passwordController.getAllEntriesBody , 
+  (req, res) => {
+  return res.status(200).json([...res.locals.entries]);
+});
+
+router.delete("/deleteEntry", 
+  passwordController.deleteEntry,
+  passwordController.getAllEntriesBody , 
+  (req, res) => {
+  return res.status(200).json([...res.locals.entries]);
+});
+
 router.get("/getAllEntries", passwordController.getAllEntries, (req, res) => {
   return res.status(200).json([...res.locals.entries]);
 });
