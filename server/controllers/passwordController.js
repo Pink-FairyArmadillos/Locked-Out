@@ -84,6 +84,20 @@ passwordController.getAllEntries = (req, res, next) => {
   });
 };
 
+//PLEASE DELETE ME LATER
+passwordController.getAllEntriesBody = (req, res, next) => {
+  console.log(req.body.userID);
+  // const queryGetEntries = `SELECT * FROM entry WHERE user_id=${req.query.userID};`;
+  const queryGetEntries = `SELECT * FROM entry WHERE user_id=${Number(
+    req.body.userID
+  )};`;
+  db.query(queryGetEntries).then((rset) => {
+    // console.log("rset", rset);
+    res.locals.entries = [...rset.rows];
+    return next();
+  });
+};
+
 passwordController.addEntry = (req, res, next) => {
   console.log("reached addEntry");
   // console.log(req.query);
@@ -96,6 +110,38 @@ passwordController.addEntry = (req, res, next) => {
     "INSERT INTO entry (url,user_id, entry_password) VALUES($1, $2, $3) RETURNING *;";
   db.query(queryInsertUser, values, (rset) => {
     res.locals.entryAdded = true;
+    return next();
+  });
+};
+
+passwordController.updateEntry = (req, res, next) => {
+  console.log("reached updateEntry");
+  const values = [
+    req.body.urlEntry,
+    req.body.userID,
+    req.body.passwordEntry,
+    req.body.entryID
+  ];
+  console.log(values);
+  const queryInsertUser =
+    "UPDATE entry SET url=$1, user_id=$2, entry_password = $3 WHERE id = $4;";
+  db.query(queryInsertUser, values, (rset) => {
+    res.locals.entryUpdated = true;
+    return next();
+  });
+};
+
+passwordController.deleteEntry = (req, res, next) => {
+  console.log("reached deleteEntry");
+  const entry_id = req.body.entryID;
+  // console.log(req.query);
+  const values = [
+    entry_id
+  ];
+  const queryInsertUser =
+    "DELETE FROM entry WHERE id = $1;";
+  db.query(queryInsertUser, values, (rset) => {
+    res.locals.entryDeleted = true;
     return next();
   });
 };
