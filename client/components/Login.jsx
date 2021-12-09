@@ -22,7 +22,7 @@ const Login = () => {
   const handleLogin = (username, password) => {
     fetch('/api/login', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username,
         passwordUser: password,
@@ -31,6 +31,7 @@ const Login = () => {
       .then((response) => response.json())
       .then((data) => handleUserFetch(data))
       .catch((err) => console.log(err));
+
   };
 
   return (
@@ -58,7 +59,7 @@ const Login = () => {
               ></input>
               <button
                 className="user-reveal-button"
-                onClick={() => setPasswordState(passwordState === "password"?"text": "password")}>👁</button>
+                onClick={() => setPasswordState(passwordState === "password" ? "text" : "password")}>👁</button>
             </div>
 
 
@@ -70,13 +71,21 @@ const Login = () => {
                 {" "}
                 Log in
               </button>
-                {/* onClick={() => handleSignup(username, password)} */}
-              <Link to="/signup" className="primary-button">Sign Up</Link>
+              {/* onClick={() => handleSignup(username, password)} */}
+              <Link
+                to="/signup"
+                className="primary-button"
+              >Sign Up
+              </Link>
             </div>
           </div>
         </div>
       )}
-      {userLoggedIn && <Dashboard />}
+      {userLoggedIn && <Dashboard 
+      isLoggedIn={setUserLoggedIn}
+      clearUsername={setUsername}
+      clearPassword={setPassword}
+      />}
     </>
   );
 };

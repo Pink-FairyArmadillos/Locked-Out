@@ -10,12 +10,33 @@ const useInput = (init) => {
 };
 
 const GeneratePassword = () => {
-  const [generatedPassword, generatedPasswordOnChange] = useInput('');
   const [passwordLength, passwordLengthOnChange] = useInput('');
-  const [upperCase, upperCaseOnChange] = useInput('');
-  const [lowerCase, lowerCaseOnChange] = useInput('');
-  const [number, numberOnChange] = useInput('');
-  const [symbol, symbolOnChange] = useInput('');
+  // const [generatedPassword, generatedPasswordOnChange] = useInput('');
+  // const [upperCase, upperCaseOnChange] = useInput('');
+  // const [lowerCase, lowerCaseOnChange] = useInput('');
+  // const [number, numberOnChange] = useInput('');
+  // const [symbol, symbolOnChange] = useInput('');
+  let upperOn = false;
+  let lowerOn = false;
+  let numberOn = false;
+  let symbolOn = false;
+
+  function upperClick() {
+    upperOn ? (upperOn = false) : (upperOn = true);
+    console.log(upperOn);
+  }
+  function lowerClick() {
+    lowerOn ? (lowerOn = false) : (lowerOn = true);
+    console.log(lowerOn);
+  }
+  function numberClick() {
+    numberOn ? (numberOn = false) : (numberOn = true);
+    console.log(numberOn);
+  }
+  function symbolClick() {
+    symbolOn ? (symbolOn = false) : (symbolOn = true);
+    console.log(symbolOn);
+  }
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(
@@ -109,17 +130,20 @@ const GeneratePassword = () => {
     let stringLength = passwordLength;
     let password = '';
     let charArray = [];
-    if (upperCase) {
+    if (upperOn) {
+      console.log(upperOn);
       charArray = charArray.concat(upperLetters);
     }
-    if (lowerCase) {
-      console.log(lowerCase);
+    if (lowerOn) {
+      console.log(lowerOn);
       charArray = charArray.concat(lowerLetters);
     }
-    if (number) {
+    if (numberOn) {
+      console.log(numberOn);
       charArray = charArray.concat(numbers);
     }
-    if (symbol) {
+    if (symbolOn) {
+      console.log(symbolOn);
       charArray = charArray.concat(symbols);
     }
     if (!charArray.length) {
@@ -138,10 +162,7 @@ const GeneratePassword = () => {
 
   return (
     <div className="generatePassword">
-      <input
-        id="generatedPassword"
-        //onChange={generatedPasswordOnChange}
-      ></input>
+      <input id="generatedPassword"></input>
       <button onClick={copyToClipboard}>Copy To Clipboard</button>
       <br />
       <label htmlFor="passwordLength">Password Length: </label>
@@ -150,6 +171,7 @@ const GeneratePassword = () => {
         min="0"
         max="100"
         name="passwordLength"
+        id="number"
         placeholder="Number"
         value={passwordLength}
         onChange={passwordLengthOnChange}
@@ -160,7 +182,7 @@ const GeneratePassword = () => {
         id="upperCase"
         name="upperCase"
         value="upperCase"
-        onChange={upperCaseOnChange}
+        onChange={upperClick}
       />
       <label for="upperCase">Upper Case</label>
       <br />
@@ -169,7 +191,7 @@ const GeneratePassword = () => {
         id="lowerCase"
         name="lowerCase"
         value="lowerCase"
-        onChange={lowerCaseOnChange}
+        onChange={lowerClick}
       />
       <label for="lowerCase">Lower Case</label>
       <br />
@@ -178,7 +200,7 @@ const GeneratePassword = () => {
         id="number"
         name="number"
         value="number"
-        onChange={numberOnChange}
+        onChange={numberClick}
       />
       <label for="number">Number</label>
       <br />
@@ -186,8 +208,8 @@ const GeneratePassword = () => {
         type="checkbox"
         id="symbol"
         name="symbol"
-        value="symbol"
-        onChange={symbolOnChange}
+        value="true"
+        onChange={symbolClick}
       />
       <label for="symbol">Symbol</label>
       <br />

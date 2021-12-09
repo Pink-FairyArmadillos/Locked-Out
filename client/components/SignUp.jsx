@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Dashboard from './Dashboard.jsx';
 import Logo from './Logo.jsx';
 import store from '../store';
@@ -14,9 +14,20 @@ const SignUp = () => {
   const [confirmPasswordState, setConfirmPasswordState] =
     useState('password');
 
+  const clearFields = () => {
+    setUsername('');
+    setPassword('');
+    setConfirmPassword('');
+  }
+  
   const handleSignUp = (username, password, confirmPassword) => {
-    if (confirmPassword === password) {
-      console.log("u,p"+username,password);
+
+    if (!username || !password || !confirmPassword) {
+      clearFields();
+      alert('Please fill out all text fields');
+    }
+    else if (confirmPassword === password) {
+      console.log("u,p" + username, password);
       const validated = JSON.stringify({
         username,
         passwordUser: password,
@@ -24,16 +35,17 @@ const SignUp = () => {
       console.log(validated);
       fetch(`/api/signup`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: validated
       })
         .then((response) => response.json())
         .then((data) => console.log(data))
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          alert('Username already in use!');
+          console.log(err)
+        });
     } else {
-      setUsername('');
-      setPassword('');
-      setConfirmPassword('');
+      clearFields();
       alert('Passwords do not match');
     }
   };
@@ -49,7 +61,6 @@ const SignUp = () => {
           type='text'
           value={username}
           onChange={(e) => setUsername(e.target.value)}></input>
-
 
         <div className="user-password-input">
           <input
@@ -67,7 +78,6 @@ const SignUp = () => {
             👁
           </button>
         </div>
-
 
         <div className="user-password-input">
           <input
@@ -92,18 +102,13 @@ const SignUp = () => {
 
         <PasswordStrengthMeter password={password} />
 
-        {/* <button
-              id='login-button'
-              onClick={() => handleLogin(username, password)}>
-              {' '}
-              Log in
-            </button> */}
         <div className="user-buttons">
           <button
             className="primary-button"
             onClick={() => handleSignUp(username, password, confirmPassword)}>
-            Sign up
+            Create Account
           </button>
+          <Link to="/login" className="primary-button">Login Instead</Link>
         </div>
       </div>
     </div>

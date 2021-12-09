@@ -32,7 +32,6 @@ const Entries = () => {
   };
   const displayEntries = [];
   entries?.map((element, index) => {
-    // console.log(element);
     displayEntries.push(
       <div className="vault-entry">
         <h3>{element?.url}</h3>
