@@ -16,16 +16,10 @@ const Dashboard = (props) => {
 
   return (
     <div id="page-dashboard">
-
       <Logo />
-      <h3>Dashboard</h3>
       <Link to="/login" className="secondary-button" onClick={() => handleLogout()}>
       Sign Out
       </Link>
-      <hr></hr>
-      <label>User ID:</label>
-      <span>{userIdFromState.userID}</span>
-      <br /> <br />
       <Entries />
       <GeneratePassword />
     </div>
