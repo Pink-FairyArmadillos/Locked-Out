@@ -34,15 +34,15 @@ const Entries = () => {
   entries?.map((element, index) => {
     // console.log(element);
     displayEntries.push(
-      <tr className="tableCell">
-        <td className="tableCell">{element?.url}</td>
+      <div className="vault-entry">
+        <h3>{element?.url}</h3>
         {/* <td className="tableCell">{element?.entry_password}</td> */}
-        <td className="tableCell"><PasswordEntry
+        Password: <PasswordEntry
           setEntries={setEntries}
           url={element?.url}
           entryID={element?.id}
-          value={element?.entry_password} /></td>
-      </tr>
+          value={element?.entry_password} />
+      </div>
     );
   });
   return (
@@ -74,15 +74,9 @@ const Entries = () => {
       </button> */}
 
       {entries.length > 0 && (
-        <table>
-          <tr className="tableCell">
-            <td className="tableCell">URL</td>
-            <td className="tableCell">Passwords</td>
-
-          </tr>
-
+        <div className="vault-entry-container">
           {displayEntries}
-        </table>
+        </div>
       )}
     </>
   );

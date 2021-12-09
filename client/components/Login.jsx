@@ -39,12 +39,6 @@ const Login = () => {
         <div id="page-login">
           <Logo />
           <div className="center-content">
-            <img
-              id="logo-image"
-              src="pinkFairyArmidallo.png"
-              alt="Badass Armored PFA"
-            />
-            <h2 className="form-item">Login</h2>
             <input
               className="form-group form-item"
               placeholder="Username"

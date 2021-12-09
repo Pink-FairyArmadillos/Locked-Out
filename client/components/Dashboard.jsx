@@ -10,11 +10,6 @@ const Dashboard = () => {
   return (
     <div id="page-dashboard">
       <Logo />
-      <h3>Dashboard</h3>
-      <hr></hr>
-      <label>User ID:</label>
-      <span>{userIdFromState.userID}</span>
-      <br /> <br />
       <Entries />
       <button>
         <Link to="/login">Sign out</Link>

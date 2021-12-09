@@ -42,12 +42,6 @@ const SignUp = () => {
     <div id="page-signup">
       <Logo />
       <div className="center-content">
-        <img
-          id='logo-image'
-          src='pinkFairyArmidallo.png'
-          alt='Badass Armored PFA'
-        />
-        <h2 className='form-item'>Sign Up</h2>
         <input
           className='form-group form-item'
           placeholder='Username'
