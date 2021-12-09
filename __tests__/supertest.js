@@ -108,26 +108,26 @@ describe("Route integration", () => {
             //{ userExists: false, userAdded: false, userID: null }
             expect(res.body).toHaveProperty('userExists');
             expect(res.body).toHaveProperty('userAdded');
-            expect(res.body).toHaveProperty('userID');
+            // expect(res.body).toHaveProperty('userID');
           });
       });
     });
   });
 
-  //put test goes here
+  //post test goes here
   describe("/api/addEntry", () => {
     describe("POST", () => {
       it("responds with 200 status and application/json content type", () => {
         return request(server)
           .post("/api/addEntry")
-          .query({urlEntry: "www.hackme.com", userID: 3, passwordEntry: "hunter2"})
+          .query({urlEntry: "www.hackme.com", userID: 2, passwordEntry: "hunter2"})
           .expect(200);
       });
 
       it('parses an array from the response to login', () => {
         return request(server)
           .post("/api/addEntry")
-          .query({urlEntry: "www.hackme.com", userID: 3, passwordEntry: "hunter2"})
+          .query({urlEntry: "www.hackme.com", userID: 2, passwordEntry: "hunter2"})
         //   .expect("Content-Type", /json/)
           .expect(200)
           .then((res) => {
@@ -137,12 +137,36 @@ describe("Route integration", () => {
     });
   });
 
+    //update test goes here
+    describe("/api/updateEntry", () => {
+      describe("PUT", () => {
+        it("responds with 200 status and application/json content type", () => {
+          return request(server)
+            .put("/api/updateEntry")
+            .send({entryID: 1, urlEntry: "www.pwnme.com", userID: 2, passwordEntry: "password123"})
+            .expect(200);
+        });
+  
+        it('parses an array from the response to login', () => {
+          return request(server)
+            .put("/api/updateEntry")
+            .send({entryID: 2, urlEntry: "www.pwnme.com", userID: 2, passwordEntry: "hunter2"})
+          //   .expect("Content-Type", /json/)
+            .expect(200)
+            .then((res) => {
+              expect(Array.isArray(res.body)).toEqual(true);
+            });
+        });
+      });
+    });
+
   //delete test goes here
-  xdescribe("/api/deleteEntry", () => {
+  describe("/api/deleteEntry", () => {
     describe("DELETE", () => {
       it("responds with 200 status and application/json content type", () => {
         return request(server)
           .delete("/api/deleteEntry")
+          .send({userID: 2, entryID: 2})
         //   .expect("Content-Type", /json/)
           .expect(200);
       });

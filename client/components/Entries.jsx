@@ -32,11 +32,15 @@ const Entries = () => {
   };
   const displayEntries = [];
   entries?.map((element, index) => {
+    // console.log(element);
     displayEntries.push(
       <tr className="tableCell">
         <td className="tableCell">{element?.url}</td>
         {/* <td className="tableCell">{element?.entry_password}</td> */}
-        <td className="tableCell"><PasswordEntry value={element?.entry_password}/></td>
+        <td className="tableCell"><PasswordEntry 
+        url = {element?.url}
+        entryID = {element?.id}
+        value={element?.entry_password}/></td>
       </tr>
     );
   });
