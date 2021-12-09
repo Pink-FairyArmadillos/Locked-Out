@@ -37,7 +37,7 @@ const PasswordEntry = (props) => {
         })
       })
         .then((response) => response.json())
-        .then((data) => handleUserFetch(data))
+        // .then((data) => handleUserFetch(data))
         .catch((err) => console.log(err));
     }
   }
@@ -51,7 +51,7 @@ const PasswordEntry = (props) => {
       body: JSON.stringify({entryID})
     })
     .then(response => response.json())
-    .then((data) => handleUserFetch(data))
+    // .then((data) => handleUserFetch(data))
     .catch((err) => console.log(err));
   }
 
