@@ -1,0 +1,231 @@
+@import '_variables';
+
+body {
+  margin: 0;
+  background-color: $background;
+  color: $primary-foreground;
+  font-family: $font-sans-serif;
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-dark;
+    color: $primary-foreground-dark;
+  }
+}
+
+.center-content {
+  max-width: 650px;
+  margin: auto;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+
+  background-color: $background-focus;
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+  }
+
+  input {
+    width: calc(100% - 1em);
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 1.3rem;
+    margin: 0.5em;
+    border-radius: 1em;
+    padding: 0 0.75em;
+    border-style: solid;
+    border-width: 1px;
+    font-family: $font-monospace;
+  }
+  input:focus {
+    box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.user-password-input {
+  position: relative;
+}
+
+.user-reveal-button {
+  position: absolute;
+  right: 0.7em;
+  top: 0.57em;
+  font-size: 1.3rem;
+  border-radius: 2em;
+  border: none;
+  background: none;
+}
+
+.user-reveal-button:hover {
+  cursor: pointer;
+}
+
+.user-buttons {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  * {
+    flex: 1 1 auto;
+  }
+}
+
+.primary-button {
+  text-decoration: none;
+  padding: 0.2em;
+  font-size: 2rem;
+  margin: 10px;
+  border-radius: 0;
+
+  background-color: $primary-foreground;
+  color: $background-focus;
+  border: 1px solid $primary-foreground;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $primary-foreground-dark;
+    color: $background-focus-dark;
+    border-color: $primary-foreground-dark;
+  }
+}
+
+.primary-button:hover {
+  background-color: $background-focus;
+  color: $primary-foreground;
+  text-shadow: 0 0 0.2em $tertiary-foreground;
+  cursor: pointer;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+    color: $primary-foreground-dark;
+    text-shadow: 0 0 0.2em $tertiary-foreground-dark;
+  }
+}
+
+.primary-button:active {
+  transform: scale(0.98);
+  box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.2);
+}
+
+.secondary-button {
+  text-decoration: none;
+  padding: 0.2em;
+  font-size: 2rem;
+  margin: 10px;
+  border-radius: 0;
+  cursor: pointer;
+
+  background-color: $background-focus;
+  color: $secondary-foreground;
+  border: 1px solid $secondary-foreground;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+    color: $secondary-foreground-dark;
+    border-color: $secondary-foreground-dark;
+  }
+}
+
+.secondary-button:hover {
+  background-color: $background-focus;
+  color: $primary-foreground;
+  text-shadow: 0 0 0.2em $tertiary-foreground;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+    color: $primary-foreground-dark;
+    text-shadow: 0 0 0.2em $tertiary-foreground-dark;
+  }
+}
+
+.secondary-button:active {
+  transform: scale(0.98);
+  box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.2);
+}
+
+.vault-entry-container {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(200px, 1fr));
+  grid-gap: 10px;
+}
+
+.vault-entry {
+  border: 1px solid $primary-foreground;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid $primary-foreground-dark;
+  }
+
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+#logo {
+  font-family: $font-logo;
+  font-size: 3rem;
+  color: $primary-foreground;
+  text-decoration: none;
+  @media (prefers-color-scheme: dark) {
+    color: $primary-foreground-dark;
+  }
+}
+
+// Old styling below
+
+
+#logo-image {
+  margin-top: 3px;
+  height: 4em;
+  width: 4em;
+}
+
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+table {
+  border: 1px solid black;
+  display:inline-table;
+  margin: 2px;
+}
+
+.form-item {
+  margin-top: 3px;
+  margin-left: 10px;
+}
+
+//#master-password-reveal-button {
+//  border-radius: 8px;
+//  height: 2.5em;
+//  width: 8em;
+//  font-size: 10px;
+//  padding: 0;
+//  margin-left: 1em;
+//}
+//
+//#vault-password-reveal-button {
+//  border-radius: 18px;
+//  height: 20px;
+//  width: 50px;
+//  font-size: 10px;
+//}
+//
+//#login-button {
+//  margin-top: 3px;
+//  margin-left: 30px;
+//  background-color: blue;
+//  color: white;
+//  border-radius: 4px;
+//}
+//
+//#signup-button {
+//  margin-top: 3px;
+//  margin-left: 10px;
+//  border-radius: 4px;
+//}
+
+td .tableCell{
+  display:flex;
+  width:1em;
+  text-align: right;
+  border: 1px solid black;
+  margin: 2px;
+}

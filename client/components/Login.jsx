@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Dashboard from "./Dashboard.jsx";
+import Logo from "./Logo.jsx";
 import store from "../store";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter.jsx";
 
@@ -35,50 +36,51 @@ const Login = () => {
   return (
     <>
       {!userLoggedIn && (
-        <>
-          <img
-            id="logo-image"
-            src="pinkFairyArmidallo.png"
-            alt="Badass Armored PFA"
-          />
-          <h2 className="form-item">Login</h2>
-          <input
-            className="form-group form-item"
-            placeholder="Username"
-            name="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          ></input>
+        <div id="page-login">
+          <Logo />
+          <div className="center-content">
+            <img
+              id="logo-image"
+              src="pinkFairyArmidallo.png"
+              alt="Badass Armored PFA"
+            />
+            <h2 className="form-item">Login</h2>
+            <input
+              className="form-group form-item"
+              placeholder="Username"
+              name="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            ></input>
 
-          <br></br>
+            <div className="user-password-input">
+              <input
+                className="form-group shadow-none form-item user-password-input"
+                placeholder="Password"
+                type={passwordState}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              ></input>
+              <button
+                className="user-reveal-button"
+                onClick={() => setPasswordState(passwordState === "password"?"text": "password")}>👁</button>
+            </div>
 
-          <input
-            className="form-group shadow-none form-item"
-            placeholder="Password"
-            type={passwordState}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
 
-          <button
-            id="master-password-reveal-button"
-            onClick={() => setPasswordState(passwordState === "password"?"text": "password")}>Reveal</button>
-
-          <PasswordStrengthMeter password={password} />
-
-          <button
-            id="login-button"
-            onClick={() => handleLogin(username, password)}
-          >
-            {" "}
-            Log in
-          </button>
-          <button id="signup-button">
-            {/* onClick={() => handleSignup(username, password)} */}
-            <Link to="/signup">Sign Up</Link>
-          </button>
-        </>
+            <div className="user-buttons">
+              <button
+                className="secondary-button"
+                onClick={() => handleLogin(username, password)}
+              >
+                {" "}
+                Log in
+              </button>
+                {/* onClick={() => handleSignup(username, password)} */}
+              <Link to="/signup" className="primary-button">Sign Up</Link>
+            </div>
+          </div>
+        </div>
       )}
       {userLoggedIn && <Dashboard />}
     </>
