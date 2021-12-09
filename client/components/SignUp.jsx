@@ -13,26 +13,22 @@ const SignUp = () => {
   const [confirmPasswordState, setConfirmPasswordState] =
     useState('password');
 
-  //   const handleUserFetch = (data) => {
-  //     setUserLoggedIn(data.userExists);
-  //     store.dispatch({
-  //       type: 'ADD_USER_ID',
-  //       payload: data.userID,
-  //     });
-  //   };
-
   const handleSignUp = (username, password, confirmPassword) => {
     if (confirmPassword === password) {
+      console.log("u,p"+username,password);
+      const validated = JSON.stringify({
+        username,
+        passwordUser: password,
+      });
+      console.log(validated);
       fetch(`/api/signup`, {
         method: 'POST',
-        header: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          username,
-          password
-        })
+        headers: {'Content-Type': 'application/json'},
+        body: validated
       })
         .then((response) => response.json())
-        .then((data) => console.log(data));
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
     } else {
       setUsername('');
       setPassword('');

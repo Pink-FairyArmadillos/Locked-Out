@@ -19,22 +19,17 @@ const Login = () => {
   };
 
   const handleLogin = (username, password) => {
-    fetch(`/api/login`, {
+    fetch('/api/login', {
       method: 'POST',
-      header: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         username,
-        password
+        passwordUser: password,
       })
     })
-    // fetch(`/api/login?username=${username}&passwordUser=${password}`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
       .then((response) => response.json())
-      .then((data) => handleUserFetch(data));
+      .then((data) => handleUserFetch(data))
+      .catch((err) => console.log(err));
   };
 
   return (
