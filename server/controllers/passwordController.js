@@ -6,6 +6,7 @@ const passwordController = {};
 
 //rewrite login to query DB for user/password combo instead of the for loop?
 passwordController.getLogin = (req, res, next) => {
+  console.log(req.body);
   console.log("Username: ", req.body.username);
   console.log("Password: ", req.body.passwordUser);
   const queryGetLogin =
@@ -20,16 +21,16 @@ passwordController.getLogin = (req, res, next) => {
       if (bcrypt.compareSync(req.body.passwordUser, hash)) {
         console.log('password is correct')
         res.locals.userMetaData = {
-          userExists: false,
+          userExists: true,
           userAdded: false,
-          userID: null,
+          userID: rset.rows[0]._id,
         };
         return next();
       } else {
         res.locals.userMetaData = {
-          userExists: true,
+          userExists: false,
           userAdded: false,
-          userID: rset.rows[0]._id,
+          userID: null,
         };
         return next(new Error('Password was incorrect'));
       }
@@ -42,8 +43,9 @@ passwordController.getLogin = (req, res, next) => {
 
 // create user in DB
 passwordController.getSignup = (req, res, next) => {
-  const hash = bcrypt.hashSync(req.body.passwordUser, 10)
+  console.log(req.body);
   console.log("Username: ", req.body.username);
+  const hash = bcrypt.hashSync(req.body.passwordUser, 10)
   console.log("Password: ", req.body.passwordUser);
   //check to see if username and password have been entered
   if (!req.body.username || !req.body.passwordUser)
