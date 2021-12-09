@@ -9,6 +9,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 import SignUp from "./components/SignUp.jsx"
 
+import "./scss/application.scss";
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

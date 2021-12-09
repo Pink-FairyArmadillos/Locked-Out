@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import "../styles.scss";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter.jsx";
 import PasswordEntry from "./PasswordEntry.jsx";
 
