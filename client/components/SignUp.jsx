@@ -108,7 +108,7 @@ const SignUp = () => {
             onClick={() => handleSignUp(username, password, confirmPassword)}>
             Create Account
           </button>
-          <Link to="/login" className="primary-button">Login Instead</Link>
+          <Link to="/login" className="secondary-button">Login Instead</Link>
         </div>
       </div>
     </div>

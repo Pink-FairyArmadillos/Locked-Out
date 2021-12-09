@@ -148,6 +148,44 @@ body {
   }
 }
 
+.tertiary-button {
+  text-decoration: none;
+  padding: 0.2em;
+  font-size: 1rem;
+  margin: 10px;
+  border-radius: 0;
+  cursor: pointer;
+
+  background-color: $background-focus;
+  color: $tertiary-foreground;
+  border: 1px solid $tertiary-foreground;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+    color: $tertiary-foreground-dark;
+    border-color: $tertiary-foreground-dark;
+  }
+}
+
+.tertiary-button:hover {
+  background-color: $background-focus;
+  color: $tertiary-foreground;
+  text-shadow: 0 0 0.2em $tertiary-foreground;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+    color: $tertiary-foreground-dark;
+    text-shadow: 0 0 0.2em $tertiary-foreground-dark;
+  }
+}
+
+.tertiary-button:active {
+  transform: scale(0.98);
+  @media (prefers-color-scheme: light) {
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+
 .vault-entry-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -171,6 +209,18 @@ body {
   }
 }
 
+#logo-container {
+  display: flex;
+  align-items: center;
+  @media (prefers-color-scheme: light) {
+    box-shadow: 2px 0px 5px 1px rgba(0, 0, 0, 0.2);
+  }
+  background-color: $background-focus;
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+  }
+}
+
 #logo {
   font-family: $font-logo;
   font-size: 3rem;
@@ -180,24 +230,13 @@ body {
   @media (prefers-color-scheme: dark) {
     color: $primary-foreground-dark;
   }
-
-  div {
-    @media (prefers-color-scheme: light) {
-      box-shadow: 2px 0px 5px 1px rgba(0, 0, 0, 0.2);
-    }
-    padding-left: 0.5em;
-    background-color: $background-focus;
-    @media (prefers-color-scheme: dark) {
-      background-color: $background-focus-dark;
-    }
-  }
 }
 
 // Old styling below
 
 
 #logo-image {
-  margin-top: 3px;
+  padding: 0 1em;
   height: 5em;
   width: 5em;
   margin: auto;
@@ -220,6 +259,28 @@ table {
 .form-item {
   margin-top: 3px;
   margin-left: 10px;
+}
+
+#dashboard-control {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1em 0;
+
+  > div {
+    box-sizing: border-box;
+    padding: 5px;
+
+    border: 1px solid $primary-foreground;
+    background-color: $background-focus;
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid $primary-foreground-dark;
+      background-color: $background-focus-dark;
+    }
+
+    @media (prefers-color-scheme: light) {
+      box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    }
+  }
 }
 
 //#master-password-reveal-button {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter.jsx";
 import PasswordEntry from "./PasswordEntry.jsx";
+import GeneratePassword from './GeneratePassword.jsx';
 
 
 const Entries = () => {
@@ -46,17 +47,25 @@ const Entries = () => {
   });
   return (
     <>
-      <label>Url</label>
-      <input value={entryURL} onChange={(e) => setEntryURL(e.target.value)} />
-      <label>Password</label>
-      <input
-        type={passwordState}
-        value={entryPassword}
-        onChange={(e) => setEntryPassword(e.target.value)}
-      />
-      <button onClick={() => handleSaveEntries()}>Save</button>
+      <div id="dashboard-control">
+        <div>
+          <label>Url</label>
+          <input value={entryURL} onChange={(e) => setEntryURL(e.target.value)} />
+          <br/>
+          <label>Password</label>
+          <input
+            type={passwordState}
+            value={entryPassword}
+            onChange={(e) => setEntryPassword(e.target.value)}
+          />
+          <br/>
+          <button className="secondary-button" onClick={() => handleSaveEntries()}>Create entry</button>
 
-      <PasswordStrengthMeter password={entryPassword} />
+          <PasswordStrengthMeter password={entryPassword} />
+        </div>
+
+        <GeneratePassword />
+      </div>
 
       {/* <button
         style={{
