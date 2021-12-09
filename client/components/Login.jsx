@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Dashboard from "./Dashboard.jsx";
 import store from "../store";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter.jsx";
@@ -18,14 +19,17 @@ const Login = () => {
   };
 
   const handleLogin = (username, password) => {
-    fetch(`/api/login?username=${username}&passwordUser=${password}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetch('/api/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        username,
+        passwordUser: password,
+      })
     })
       .then((response) => response.json())
-      .then((data) => handleUserFetch(data));
+      .then((data) => handleUserFetch(data))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -70,12 +74,9 @@ const Login = () => {
             {" "}
             Log in
           </button>
-          <button
-            id="signup-button"
-            disabled
-            // onClick={() => handleSignup(username, password)}
-          >
-            Sign up
+          <button id="signup-button">
+            {/* onClick={() => handleSignup(username, password)} */}
+            <Link to="/signup">Sign Up</Link>
           </button>
         </>
       )}

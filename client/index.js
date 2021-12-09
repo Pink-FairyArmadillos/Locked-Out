@@ -7,6 +7,7 @@ import Login from "./components/Login.jsx";
 import MainContainer from "../client/components/MainContainer.jsx";
 import { Provider } from "react-redux";
 import store from "./store";
+import SignUp from "./components/SignUp.jsx"
 
 import "./scss/application.scss";
 
@@ -18,6 +19,7 @@ ReactDOM.render(
         <Route path="/main" element={<MainContainer />}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
       </Routes>
     </BrowserRouter>
   </Provider>,
