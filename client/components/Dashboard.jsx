@@ -16,7 +16,7 @@ const Dashboard = () => {
       <br /> <br />
       <Entries />
       <button>
-        <Link to="/login">Sign out</Link>
+        <Link to="/login">Sign Out</Link>
       </button>
     </div>
   );
