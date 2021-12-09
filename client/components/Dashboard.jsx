@@ -1,8 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Entries from './Entries.jsx';
 import Logo from './Logo.jsx';
+import GeneratePassword from './GeneratePassword.jsx';
 
 const Dashboard = () => {
   let userIdFromState = useSelector((state) => state);
@@ -18,6 +19,7 @@ const Dashboard = () => {
       <button>
         <Link to="/login">Sign Out</Link>
       </button>
+      <GeneratePassword />
     </div>
   );
 };
