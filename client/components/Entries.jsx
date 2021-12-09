@@ -36,14 +36,14 @@ const Entries = () => {
   entries?.map((element, index) => {
     displayEntries.push(
       <tr className="tableCell">
-        <td className="tableCell">{element?.url}</td> {/* need to update to .urlentry to match backend */}
+        <td className="tableCell">{element?.urlentry}</td> {/* need to update to .urlentry to match backend */}
         {/* <td className="tableCell">{element?.username}</td> */}
         {/* <td className="tableCell">{element?.entry_password}</td> */}
         <td className="tableCell">
           <PasswordEntry 
-            entryPassword={element?.entry_password} 
+            entryPassword={element?.passwordentry} 
             setEntries={setEntries}
-            entryURL={element?.url}
+            entryURL={element?.urlentry}
             entryUserName={element?.username}
             userID={userID}/>
         </td>
