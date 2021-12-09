@@ -213,7 +213,7 @@ const GeneratePassword = () => {
       />
       <label for="symbol">Symbol</label>
       <br />
-      <button type="submit" onClick={generate}>
+      <button className="secondary-button" type="submit" onClick={generate}>
         Generate
       </button>
     </div>
