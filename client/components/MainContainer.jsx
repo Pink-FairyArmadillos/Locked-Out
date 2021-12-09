@@ -5,7 +5,6 @@ import Logo from "../components/Logo.jsx";
 const MainContainer = () => {
   return (
     <>
-      <Logo />
       <Login />
     </>
   );
