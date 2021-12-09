@@ -82,7 +82,7 @@ const Entries = () => {
             value={entryPassword}
             onChange={(e) => setEntryPassword(e.target.value)}/>
         </label>
-      <input type="submit" value="Save">
+      <input type="submit" value="Save" className="entrybtn">
       </input>
       </form>
 
