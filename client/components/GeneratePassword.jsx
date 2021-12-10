@@ -174,7 +174,7 @@ const GeneratePassword = () => {
             min="0"
             max="100"
             name="passwordLength"
-            id="number"
+            id="passwordLength"
             placeholder="Number"
             value={passwordLength}
             onChange={passwordLengthOnChange}
