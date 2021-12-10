@@ -19,7 +19,7 @@ const SignUp = () => {
     setPassword('');
     setConfirmPassword('');
   }
-  
+
   const handleSignUp = (username, password, confirmPassword) => {
 
     if (!username || !password || !confirmPassword) {

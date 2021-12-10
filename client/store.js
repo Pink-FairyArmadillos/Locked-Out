@@ -1,6 +1,6 @@
 import { createStore } from "redux";
-import passwordReducer from "./reducers/passwordReducer";
+import bigReducer from "./reducers/passwordReducer"
 
-const store = createStore(passwordReducer);
+const store = createStore(bigReducer);
 
 export default store;
