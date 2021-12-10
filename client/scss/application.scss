@@ -188,7 +188,7 @@ body {
 
 .vault-entry-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 10px;
   margin: 3%;
 }
@@ -232,33 +232,11 @@ body {
   }
 }
 
-// Old styling below
-
-
 #logo-image {
   padding: 0 1em;
   height: 5em;
   width: 5em;
   margin: auto;
-}
-
-
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-
-table {
-  border: 1px solid black;
-  display:inline-table;
-  margin: 2px;
-}
-
-.form-item {
-  margin-top: 3px;
-  margin-left: 10px;
 }
 
 #dashboard-control {
@@ -267,6 +245,9 @@ table {
   margin: 1em 0;
 
   > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     box-sizing: border-box;
     padding: 5px;
 
@@ -280,42 +261,9 @@ table {
     @media (prefers-color-scheme: light) {
       box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     }
+
+    > * {
+      flex-grow: 0;
+    }
   }
 }
-
-//#master-password-reveal-button {
-//  border-radius: 8px;
-//  height: 2.5em;
-//  width: 8em;
-//  font-size: 10px;
-//  padding: 0;
-//  margin-left: 1em;
-//}
-//
-//#vault-password-reveal-button {
-//  border-radius: 18px;
-//  height: 20px;
-//  width: 50px;
-//  font-size: 10px;
-//}
-//
-//#login-button {
-//  margin-top: 3px;
-//  margin-left: 30px;
-//  background-color: blue;
-//  color: white;
-//  border-radius: 4px;
-//}
-//
-//#signup-button {
-//  margin-top: 3px;
-//  margin-left: 10px;
-//  border-radius: 4px;
-//}
-//td .tableCell{
-//  display:flex;
-//  width:1em;
-//  text-align: right;
-//  border: 1px solid black;
-//  margin: 2px;
-//}

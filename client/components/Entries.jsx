@@ -53,19 +53,24 @@ const Entries = () => {
     <>
       <div id="dashboard-control">
         <div>
-          <label>Url</label>
-          <input value={entryURL} onChange={(e) => dispatch(setEntryURL(e.target.value))} />
-          <br/>
-          <label>Password</label>
-          <input
-            type={passwordState}
-            value={entryPassword}
-            onChange={(e) => setEntryPassword(e.target.value)}
-          />
-          <br/>
+          <div className="dashboard-control-inputs">
+            <div>
+              <label>Url</label>
+              <input value={entryURL} onChange={(e) => dispatch(setEntryURL(e.target.value))} />
+            </div>
+            <div>
+              <label>Password</label>
+              <input
+                type={passwordState}
+                value={entryPassword}
+                onChange={(e) => setEntryPassword(e.target.value)}
+              />
+            </div>
+            <div>
+              <PasswordStrengthMeter password={entryPassword} />
+            </div>
+          </div>
           <button className="secondary-button" onClick={() => handleSaveEntries()}>Create entry</button>
-
-          <PasswordStrengthMeter password={entryPassword} />
         </div>
 
         <GeneratePassword />
