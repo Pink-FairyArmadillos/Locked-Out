@@ -162,57 +162,65 @@ const GeneratePassword = () => {
 
   return (
     <div className="generatePassword">
-      <input id="generatedPassword"></input>
-      <button onClick={copyToClipboard}>Copy To Clipboard</button>
-      <br />
-      <label htmlFor="passwordLength">Password Length: </label>
-      <input
-        type="number"
-        min="0"
-        max="100"
-        name="passwordLength"
-        id="number"
-        placeholder="Number"
-        value={passwordLength}
-        onChange={passwordLengthOnChange}
-      />
-      <br />
-      <input
-        type="checkbox"
-        id="upperCase"
-        name="upperCase"
-        value="upperCase"
-        onChange={upperClick}
-      />
-      <label for="upperCase">Upper Case</label>
-      <br />
-      <input
-        type="checkbox"
-        id="lowerCase"
-        name="lowerCase"
-        value="lowerCase"
-        onChange={lowerClick}
-      />
-      <label for="lowerCase">Lower Case</label>
-      <br />
-      <input
-        type="checkbox"
-        id="number"
-        name="number"
-        value="number"
-        onChange={numberClick}
-      />
-      <label for="number">Number</label>
-      <br />
-      <input
-        type="checkbox"
-        id="symbol"
-        name="symbol"
-        value="true"
-        onChange={symbolClick}
-      />
-      <label for="symbol">Symbol</label>
-      <br />
+      <div className="dashboard-control-inputs">
+        <div>
+          <input id="generatedPassword"></input>
+          <button onClick={copyToClipboard}>Copy To Clipboard</button>
+        </div>
+        <div>
+          <label htmlFor="passwordLength">Password Length: </label>
+          <input
+            type="number"
+            min="0"
+            max="100"
+            name="passwordLength"
+            id="number"
+            placeholder="Number"
+            value={passwordLength}
+            onChange={passwordLengthOnChange}
+          />
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            id="upperCase"
+            name="upperCase"
+            value="upperCase"
+            onChange={upperClick}
+          />
+          <label for="upperCase">Upper Case</label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            id="lowerCase"
+            name="lowerCase"
+            value="lowerCase"
+            onChange={lowerClick}
+          />
+          <label for="lowerCase">Lower Case</label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            id="number"
+            name="number"
+            value="number"
+            onChange={numberClick}
+          />
+          <label for="number">Number</label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            id="symbol"
+            name="symbol"
+            value="true"
+            onChange={symbolClick}
+          />
+          <label for="symbol">Symbol</label>
+        </div>
+      </div>
       <button className="secondary-button" type="submit" onClick={generate}>
         Generate
       </button>
