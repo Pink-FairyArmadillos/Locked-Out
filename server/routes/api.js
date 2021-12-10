@@ -8,21 +8,41 @@ router.get("/", (req, res) => {
   return res.status(200).json("");
 });
 
-router.get("/login", passwordController.getLogin, (req, res) => {
+// login to account
+router.post("/login", 
+passwordController.getLogin, 
+passwordController.setSessionCookie,
+(req, res) => {
   return res.status(200).json({ ...res.locals.userMetaData });
 });
 
+// create an account
 router.post(
   "/signup",
-  passwordController.getLogin,
-  passwordController.getTotalUsers,
   passwordController.getSignup,
   (req, res) => {
     return res.status(200).json({ ...res.locals.userMetaData });
   }
 );
 
-router.post("/addEntry", passwordController.addEntry,passwordController.getAllEntries , (req, res) => {
+router.post("/addEntry", 
+  passwordController.addEntry,
+  passwordController.getAllEntries , 
+  (req, res) => {
+  return res.status(200).json([...res.locals.entries]);
+});
+
+router.put("/updateEntry", 
+  passwordController.updateEntry,
+  passwordController.getAllEntriesBody , 
+  (req, res) => {
+  return res.status(200).json([...res.locals.entries]);
+});
+
+router.delete("/deleteEntry", 
+  passwordController.deleteEntry,
+  passwordController.getAllEntriesBody , 
+  (req, res) => {
   return res.status(200).json([...res.locals.entries]);
 });
 

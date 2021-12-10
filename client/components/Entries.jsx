@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import "../styles.scss";
+import { useSelector, useDispatch } from "react-redux";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter.jsx";
 import PasswordEntry from "./PasswordEntry.jsx";
+import bigReducer from "../reducers/passwordReducer.js";
+import {setEntryURL} from "../actions/passwordActions"
+import GeneratePassword from './GeneratePassword.jsx';
 
 
 const Entries = () => {
-  const [entryURL, setEntryURL] = useState("");
   const [entryPassword, setEntryPassword] = useState("");
   const [entries, setEntries] = useState([]);
   const [passwordState, setPasswordState] = useState("password");
+
+  // using redux instead of hooks (like above)
+  const dispatch = useDispatch();
+  let entryURL = useSelector((state) => state.entryURL);
   let userID = useSelector((state) => state.userID);
 
   useEffect(() => {
@@ -34,51 +39,49 @@ const Entries = () => {
   const displayEntries = [];
   entries?.map((element, index) => {
     displayEntries.push(
-      <tr className="tableCell">
-        <td className="tableCell">{element?.url}</td>
-        {/* <td className="tableCell">{element?.entry_password}</td> */}
-        <td className="tableCell"><PasswordEntry value={element?.entry_password}/></td>
-      </tr>
+      <div className="vault-entry">
+        <div className="vault-entry-inner">
+          <h3>{element?.url}</h3>
+          Password: <PasswordEntry
+            setEntries={setEntries}
+            url={element?.url}
+            entryID={element?.id}
+            value={element?.entry_password} />
+        </div>
+      </div>
     );
   });
   return (
     <>
-      <label>Url</label>
-      <input value={entryURL} onChange={(e) => setEntryURL(e.target.value)} />
-      <label>Password</label>
-      <input
-        type={passwordState}
-        value={entryPassword}
-        onChange={(e) => setEntryPassword(e.target.value)}
-      />
-      <button onClick={() => handleSaveEntries()}>Save</button>
+      <div id="dashboard-control">
+        <div>
+          <div className="dashboard-control-inputs">
+            <div className="dashboard-control-inputs">
+              <label>Url</label>
+              <input value={entryURL} onChange={(e) => dispatch(setEntryURL(e.target.value))} />
+            </div>
+            <div className="dashboard-control-inputs">
+              <label>Password</label>
+              <input
+                type={passwordState}
+                value={entryPassword}
+                onChange={(e) => setEntryPassword(e.target.value)}
+              />
+            </div>
+            <div>
+              <PasswordStrengthMeter password={entryPassword} />
+            </div>
+          </div>
+          <button className="secondary-button" onClick={() => handleSaveEntries()}>Create entry</button>
+        </div>
 
-      <PasswordStrengthMeter password={entryPassword} />
-
-      {/* <button
-        style={{
-          borderRadius: "18px",
-          height: "20px",
-          width: "50px",
-          fontSize: "10px",
-        }}
-        onClick={() =>
-          setPasswordState(passwordState === "password" ? "text" : "password")
-        }
-      >
-        Reveal
-      </button> */}
+        <GeneratePassword />
+      </div>
 
       {entries.length > 0 && (
-        <table>
-          <tr className="tableCell">
-            <td className="tableCell">URL</td>
-            <td className="tableCell">Passwords</td>
-            
-          </tr>
-
+        <div className="vault-entry-container">
           {displayEntries}
-        </table>
+        </div>
       )}
     </>
   );

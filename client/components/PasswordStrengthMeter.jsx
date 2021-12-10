@@ -11,7 +11,7 @@ const PasswordStrengthMeter = ({ password }) => {
   const progressColor = () => {
     switch (testResult.score) {
       case 0:
-        return "828282";
+        return "#828282";
       case 1:
         return "#EA1111";
       case 2:
@@ -26,9 +26,12 @@ const PasswordStrengthMeter = ({ password }) => {
   };
 
   const createPasswordLabel = () => {
+    if (!password) {
+      return "";
+    }
     switch (testResult.score) {
       case 0:
-        return "";
+        return "Too weak to rate";
       case 1:
         return "Weak - easy to crack";
       case 2:
@@ -48,6 +51,7 @@ const PasswordStrengthMeter = ({ password }) => {
     height: "10px",
   });
 
+  //
   return (
     <>
       <div

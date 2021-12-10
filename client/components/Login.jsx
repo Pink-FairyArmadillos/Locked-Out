@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Dashboard from "./Dashboard.jsx";
+import Logo from "./Logo.jsx";
 import store from "../store";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter.jsx";
 
@@ -18,78 +20,72 @@ const Login = () => {
   };
 
   const handleLogin = (username, password) => {
-    fetch(`/api/login?username=${username}&passwordUser=${password}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username,
+        passwordUser: password,
+      })
     })
       .then((response) => response.json())
-      .then((data) => handleUserFetch(data));
+      .then((data) => handleUserFetch(data))
+      .catch((err) => console.log(err));
+
   };
 
   return (
     <>
       {!userLoggedIn && (
-        <>
-          <img
-            style={{ marginTop: "3px", height: "4em", width: "4em" }}
-            src="pinkFairyArmidallo.png"
-            alt="Badass Armored PFA"
-          />
-          <h2 style={{ marginTop: "3px", marginLeft: "10px" }}>Login</h2>
-          <input
-            style={{ marginTop: "3px", marginLeft: "10px" }}
-            className="form-group"
-            placeholder="Username"
-            name="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          ></input>
+        <div id="page-login">
+          <Logo />
+          <div className="center-content">
+            <input
+              className="form-group form-item"
+              placeholder="Username"
+              name="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            ></input>
 
-          <br></br>
+            <div className="user-password-input">
+              <input
+                className="form-group shadow-none form-item user-password-input"
+                placeholder="Password"
+                type={passwordState}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              ></input>
+              <button
+                className="user-reveal-button"
+                onClick={() => setPasswordState(passwordState === "password" ? "text" : "password")}>👁</button>
+            </div>
 
-          <input
-            style={{ marginTop: "3px", marginLeft: "10px" }}
-            className="form-group shadow-none"
-            placeholder="Password"
-            type={passwordState}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
 
-          <button style={{borderRadius: '8px', height: '2.5em', width: '8em', fontSize: '10px', padding:'0px', marginLeft:'1em'}} onClick={() => setPasswordState(passwordState === "password"?"text": "password")}>Reveal</button>
-
-          <PasswordStrengthMeter password={password} />
-
-          <button
-            style={{
-              marginTop: "3px",
-              marginLeft: "30px",
-              backgroundColor: "blue",
-              color: "white",
-              borderRadius: "4px",
-            }}
-            onClick={() => handleLogin(username, password)}
-          >
-            {" "}
-            Log in
-          </button>
-          <button
-            style={{
-              marginTop: "3px",
-              marginLeft: "10px",
-              borderRadius: "4px",
-            }}
-            disabled 
-            // onClick={() => handleSignup(username, password)}
-          >
-            Sign up
-          </button>
-        </>
+            <div className="user-buttons">
+              <button
+                className="secondary-button"
+                onClick={() => handleLogin(username, password)}
+              >
+                {" "}
+                Log in
+              </button>
+              {/* onClick={() => handleSignup(username, password)} */}
+              <Link
+                to="/signup"
+                className="primary-button"
+              >Sign Up
+              </Link>
+            </div>
+          </div>
+        </div>
       )}
-      {userLoggedIn && <Dashboard />}
+      {userLoggedIn && <Dashboard 
+      isLoggedIn={setUserLoggedIn}
+      clearUsername={setUsername}
+      clearPassword={setPassword}
+      />}
     </>
   );
 };

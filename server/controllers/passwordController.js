@@ -1,75 +1,106 @@
 const db = require("../models/passwordModel");
+const bcrypt = require('bcryptjs');
+const uuid = require('uuid');
 
 const passwordController = {};
 
+//rewrite login to query DB for user/password combo instead of the for loop?
 passwordController.getLogin = (req, res, next) => {
-  const queryGetLogin = "SELECT * FROM users";
-  db.query(queryGetLogin).then((rset) => {
-    res.locals.userMetaData = {
-      userExists: false,
-      userAdded: false,
-      userID: null,
-    };
-    for (let i = 0; i < rset.rowCount; i++) {
-      if (
-        req.query.username === rset.rows[i].username &&
-        req.query.passwordUser === rset.rows[i].password
-      ) {
+  console.log(req.body);
+  console.log("Username: ", req.body.username);
+  console.log("Password: ", req.body.passwordUser);
+  const queryGetLogin =
+    "SELECT * FROM users WHERE username=$1;";
+  const value = [req.body.username];
+  db.query(queryGetLogin, value)
+    .then((rset) => {
+      if (!rset.rows.length) {
+        return next(new Error('Username not found'))
+      }
+      const hash = rset.rows[0].passcode;
+      if (bcrypt.compareSync(req.body.passwordUser, hash)) {
+        console.log('password is correct')
         res.locals.userMetaData = {
           userExists: true,
           userAdded: false,
-          userID: rset.rows[i]._id,
+          userID: rset.rows[0]._id,
         };
-
-        res.locals.currentUserID = rset.rows[i]._id;
         return next();
+      } else {
+        res.locals.userMetaData = {
+          userExists: false,
+          userAdded: false,
+          userID: null,
+        };
+        return next(new Error('Password was incorrect'));
       }
-    }
-    return next();
-  });
+    })
+    .catch((err) => {
+      console.error(err);
+      next(err);
+    });
 };
 
-passwordController.getTotalUsers = (req, res, next) => {
-  const queryGetTotal = "SELECT COUNT(username) FROM users";
-  db.query(queryGetTotal).then((rset) => {
-    res.locals.totalUsers = Number(rset.rows[0].count);
-    return next();
-  });
-};
-
+// create user in DB
 passwordController.getSignup = (req, res, next) => {
-  const currID = Number(res.locals.totalUsers) + 1;
-  const values = [currID, req.query.username, req.query.passwordUser];
+  console.log(req.body);
+  console.log("Username: ", req.body.username);
+  const hash = bcrypt.hashSync(req.body.passwordUser, 10)
+  console.log("Password: ", req.body.passwordUser);
+  //check to see if username and password have been entered
+  if (!req.body.username || !req.body.passwordUser)
+    return next(
+      new Error("Please create an account with correct username and password")
+    );
+  const values = [req.body.username, hash];
   const queryInsertUser =
-    "INSERT INTO users (_id, username, password) VALUES($1, $2, $3);";
+    "INSERT INTO users (username, passcode) VALUES($1, $2);";
 
-  if (!!res.locals.userMetaData.userExists) {
-    return next();
-  } else if (!res.locals.userMetaData.userExists) {
-    db.query(queryInsertUser, values).then(() => {
+  db.query(queryInsertUser, values)
+    .then(() => {
       res.locals.userMetaData = {
-        userExists: true,
+        userExists: false,
         userAdded: true,
-        userID: currID,
+        userID: null,
       };
       return next();
+    })
+    .catch((err) => {
+      console.error(err);
+      next(err);
     });
-  }
 };
 
 passwordController.getAllEntries = (req, res, next) => {
-  console.log(req.query.userID)
+  console.log(req.query.userID);
   // const queryGetEntries = `SELECT * FROM entry WHERE user_id=${req.query.userID};`;
-  const queryGetEntries = `SELECT * FROM entry WHERE user_id=${Number(req.query.userID)};`;
+  const queryGetEntries = `SELECT * FROM entry WHERE user_id=${Number(
+    req.query.userID
+  )};`;
   db.query(queryGetEntries).then((rset) => {
-    console.log("rset", rset);
+    // console.log("rset", rset);
+    res.locals.entries = [...rset.rows];
+    return next();
+  });
+};
+
+//PLEASE DELETE ME LATER
+passwordController.getAllEntriesBody = (req, res, next) => {
+  console.log(req.body.userID);
+  // const queryGetEntries = `SELECT * FROM entry WHERE user_id=${req.query.userID};`;
+  const queryGetEntries = `SELECT * FROM entry WHERE user_id=${Number(
+    req.body.userID
+  )};`;
+  db.query(queryGetEntries).then((rset) => {
+    // console.log("rset", rset);
     res.locals.entries = [...rset.rows];
     return next();
   });
 };
 
 passwordController.addEntry = (req, res, next) => {
-
+  console.log("reached addEntry");
+  // console.log(req.query);
   const values = [
     req.query.urlEntry,
     req.query.userID,
@@ -81,6 +112,112 @@ passwordController.addEntry = (req, res, next) => {
     res.locals.entryAdded = true;
     return next();
   });
+};
+
+passwordController.updateEntry = (req, res, next) => {
+  console.log("reached updateEntry");
+  const values = [
+    req.body.urlEntry,
+    req.body.userID,
+    req.body.passwordEntry,
+    req.body.entryID
+  ];
+  console.log(values);
+  const queryInsertUser =
+    "UPDATE entry SET url=$1, user_id=$2, entry_password = $3 WHERE id = $4;";
+  db.query(queryInsertUser, values, (rset) => {
+    res.locals.entryUpdated = true;
+    return next();
+  });
+};
+
+passwordController.deleteEntry = (req, res, next) => {
+  console.log("reached deleteEntry");
+  const entry_id = req.body.entryID;
+  // console.log(req.query);
+  const values = [
+    entry_id
+  ];
+  const queryInsertUser =
+    "DELETE FROM entry WHERE id = $1;";
+  db.query(queryInsertUser, values, (rset) => {
+    res.locals.entryDeleted = true;
+    return next();
+  });
+};
+
+passwordController.setSessionCookie = (req, res, next) => {
+  const session_id = uuid.v4();
+  const text = `
+    UPDATE users
+    SET session_id=$1
+    WHERE username=$2
+  ;`;
+  const values = [session_id, req.body.username];
+
+  db.query(text, values)
+    .then((response) => {
+      res.cookie("session_id", session_id, {
+        httpOnly: true,
+        secure: true,
+      });
+      res.cookie("username", req.body.username);
+      next();
+    })
+    .catch((err) => {
+      console.error(err);
+      next(err);
+    });
+};
+
+passwordController.authorizeSession = (req, res, next) => {
+  if (!req.cookies.session_id) {
+    return next(new Error("Permission denied"));
+  }
+  const text = `
+    SELECT * FROM users
+    WHERE session_id = $1
+  ;`;
+  values = [req.cookies.session_id];
+  db.query(text, values)
+    .then((response) => {
+      if (response.rows.length) {
+        return next();
+      } else {
+        return next(new Error("Permission denied"));
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      next(err);
+    });
+};
+
+//get, put and delete entries
+passwordController.authorizeSessionForEntry = (req, res, next) => {
+  if (!req.cookies.session_id) {
+    return next(new Error("Permission denied"));
+  }
+  const text = `
+    SELECT * FROM entry
+    INNER JOIN users ON entry.user_id = users._id
+    WHERE entry.id = $1
+    AND users.session_id = $2
+  ;`;
+  //need to update the below TODO
+  values = [req.params.message_id, req.cookies.session_id];
+  db.query(text, values)
+    .then((response) => {
+      if (response.rows.length) {
+        return next();
+      } else {
+        return next(new Error("Permission denied"));
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      next(err);
+    });
 };
 
 module.exports = passwordController;
