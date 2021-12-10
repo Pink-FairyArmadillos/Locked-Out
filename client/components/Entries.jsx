@@ -40,12 +40,14 @@ const Entries = () => {
   entries?.map((element, index) => {
     displayEntries.push(
       <div className="vault-entry">
-        <h3>{element?.url}</h3>
-        Password: <PasswordEntry
-          setEntries={setEntries}
-          url={element?.url}
-          entryID={element?.id}
-          value={element?.entry_password} />
+        <div className="vault-entry-inner">
+          <h3>{element?.url}</h3>
+          Password: <PasswordEntry
+            setEntries={setEntries}
+            url={element?.url}
+            entryID={element?.id}
+            value={element?.entry_password} />
+        </div>
       </div>
     );
   });
@@ -54,11 +56,11 @@ const Entries = () => {
       <div id="dashboard-control">
         <div>
           <div className="dashboard-control-inputs">
-            <div>
+            <div className="dashboard-control-inputs">
               <label>Url</label>
               <input value={entryURL} onChange={(e) => dispatch(setEntryURL(e.target.value))} />
             </div>
-            <div>
+            <div className="dashboard-control-inputs">
               <label>Password</label>
               <input
                 type={passwordState}

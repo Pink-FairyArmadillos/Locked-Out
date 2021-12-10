@@ -14,6 +14,7 @@ body {
 .center-content {
   max-width: 650px;
   margin: auto;
+  margin-top: 10vh;
 
   @media (prefers-color-scheme: light) {
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
@@ -188,19 +189,23 @@ body {
 
 .vault-entry-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
   grid-gap: 10px;
   margin: 3%;
 }
 
 .vault-entry {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   padding: 5px;
 
   border: 1px solid $primary-foreground;
   background-color: $background-focus;
   @media (prefers-color-scheme: dark) {
-    border: 1px solid $primary-foreground-dark;
+    border: 1px solid $secondary-foreground-dark;
     background-color: $background-focus-dark;
   }
 
@@ -239,6 +244,13 @@ body {
   margin: auto;
 }
 
+.dashboard-control-inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: right;
+}
+
 #dashboard-control {
   display: flex;
   justify-content: space-evenly;
@@ -248,13 +260,14 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: right;
     box-sizing: border-box;
     padding: 5px;
 
     border: 1px solid $primary-foreground;
     background-color: $background-focus;
     @media (prefers-color-scheme: dark) {
-      border: 1px solid $primary-foreground-dark;
+      border: 1px solid $secondary-foreground-dark;
       background-color: $background-focus-dark;
     }
 
@@ -265,5 +278,34 @@ body {
     > * {
       flex-grow: 0;
     }
+  }
+}
+
+.generatePassword{
+  display: flex;
+  justify-content: center;
+  //color: $red;
+  //> button{
+  //  color: $red;
+  //}
+  > input {
+    width: 200px;
+  }
+}
+
+.entryBtns{
+  > button {
+  text-decoration: none;
+  padding: 0px;
+  // padding: 0.2em;
+  // font-size: .5rem;
+  // margin: 10px;
+  // border-radius: 0;
+  // cursor: pointer;
+
+  // background-color: $background-focus;
+  // color: $secondary-foreground;
+  // border: 1px solid $secondary-foreground;
+
   }
 }

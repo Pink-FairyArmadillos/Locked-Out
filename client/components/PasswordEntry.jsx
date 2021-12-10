@@ -53,7 +53,7 @@ const PasswordEntry = (props) => {
   }
 
   return (
-    <div>
+    <div className='entryBtns'>
       <input
         className="form-group shadow-none form-item"
         readOnly={readOnlyType}
