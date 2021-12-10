@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter.jsx";
 import PasswordEntry from "./PasswordEntry.jsx";
+import bigReducer from "../reducers/passwordReducer.js";
+import {setEntryURL} from "../actions/passwordActions"
 
 
 const Entries = () => {
-  const [entryURL, setEntryURL] = useState("");
   const [entryPassword, setEntryPassword] = useState("");
   const [entries, setEntries] = useState([]);
   const [passwordState, setPasswordState] = useState("password");
+
+  // using redux instead of hooks (like above)
+  const dispatch = useDispatch();
+  let entryURL = useSelector((state) => state.entryURL);
   let userID = useSelector((state) => state.userID);
 
   useEffect(() => {
@@ -35,7 +40,6 @@ const Entries = () => {
     displayEntries.push(
       <div className="vault-entry">
         <h3>{element?.url}</h3>
-        {/* <td className="tableCell">{element?.entry_password}</td> */}
         Password: <PasswordEntry
           setEntries={setEntries}
           url={element?.url}
@@ -47,7 +51,7 @@ const Entries = () => {
   return (
     <>
       <label>Url</label>
-      <input value={entryURL} onChange={(e) => setEntryURL(e.target.value)} />
+      <input value={entryURL} onChange={(e) => dispatch(setEntryURL(e.target.value))} />
       <label>Password</label>
       <input
         type={passwordState}
@@ -57,20 +61,6 @@ const Entries = () => {
       <button onClick={() => handleSaveEntries()}>Save</button>
 
       <PasswordStrengthMeter password={entryPassword} />
-
-      {/* <button
-        style={{
-          borderRadius: "18px",
-          height: "20px",
-          width: "50px",
-          fontSize: "10px",
-        }}
-        onClick={() =>
-          setPasswordState(passwordState === "password" ? "text" : "password")
-        }
-      >
-        Reveal
-      </button> */}
 
       {entries.length > 0 && (
         <div className="vault-entry-container">
