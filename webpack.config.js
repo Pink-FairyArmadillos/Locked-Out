@@ -1,9 +1,18 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const process = require("process");
+
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+  mode: process.env.NODE_ENV || 'production',
   devServer: {
     compress: true,
+    static: {
+      publicPath: '/public',
+    },
+    host: 'localhost',
+    port: 8080,
     proxy: { "/api": "http://localhost:3000" },
   },
   entry: path.resolve(__dirname, "./client/index.js"),
@@ -11,7 +20,10 @@ module.exports = {
     path: path.resolve(__dirname, "./build"),
     filename: "bundle.js",
   },
-  plugins: [new HtmlWebpackPlugin({ template: "index.html" })],
+  plugins: [
+    new HtmlWebpackPlugin({ template: "index.html" }),
+    new MiniCssExtractPlugin(),
+  ],
   module: {
     rules: [
       {
@@ -34,7 +46,13 @@ module.exports = {
       },
       {
         test: /\.s?[ac]ss$/i,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: [
+          process.env.NODE_ENV === 'production'
+            ? MiniCssExtractPlugin.loader
+            : "style-loader",
+          "css-loader",
+          "sass-loader",
+        ],
       },
     ],
   },

@@ -1,4 +1,4 @@
-# Pink Fairy Armadillo Password Manager
+# ~~Pink Fairy Armadillo~~ HSDC Password Manager
 
 1. What is the problem you’re solving?
  * Using the same or a common password is dangerous
@@ -20,6 +20,6 @@
 6. What is the technology stack?
  * React/Redux/Express/Webpack/SQL
  
-Team Responsibility breakdown: Who’s working on which part?
-Frontend - Trevor, Jay
-Backend - Abeer, Bryan, Erick
+Team Responsibility breakdown: Who’s working on which part?  
+Frontend - Kurtis, Aaron, Drew  
+Backend - Zach, Kyle

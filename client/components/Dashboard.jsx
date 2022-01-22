@@ -1,21 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Entries from './Entries.jsx';
+import Logo from './Logo.jsx';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   let userIdFromState = useSelector((state) => state);
+
+  function handleLogout (){
+    props.isLoggedIn(false);
+    props.clearUsername("");
+    props.clearPassword("");
+  }
+
   return (
-    <div>
-      <h3>Dashboard</h3>
-      <hr></hr>
-      <label>User ID:</label>
-      <span>{userIdFromState.userID}</span>
-      <br /> <br />
+    <div id="page-dashboard">
+      <Logo />
+      <br/>
+      <Link to="/login" className="tertiary-button" onClick={() => handleLogout()}>
+      Sign Out
+      </Link>
+      <br/>
       <Entries />
-      <button>
-        <Link to="/login">Sign out</Link>
-      </button>
     </div>
   );
 };
