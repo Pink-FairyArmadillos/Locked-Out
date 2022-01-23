@@ -1,0 +1,311 @@
+@import '_variables';
+
+body {
+  margin: 0;
+  background-color: $background;
+  color: $primary-foreground;
+  font-family: $font-sans-serif;
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-dark;
+    color: $primary-foreground-dark;
+  }
+}
+
+.center-content {
+  max-width: 650px;
+  margin: auto;
+  margin-top: 10vh;
+
+  @media (prefers-color-scheme: light) {
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+  padding: 2vw;
+  padding-top: 4vw;
+
+  background-color: $background-focus;
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+  }
+
+  input {
+    width: calc(100% - 1em);
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 1.3rem;
+    margin: 0.5em;
+    border-radius: 1em;
+    padding: 0 0.75em;
+    border-style: solid;
+    border-width: 1px;
+    font-family: $font-monospace;
+  }
+  input:focus {
+    @media (prefers-color-scheme: light) {
+      box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+.user-password-input {
+  position: relative;
+}
+
+.user-reveal-button {
+  position: absolute;
+  right: 0.7em;
+  top: 0.57em;
+  font-size: 1.3rem;
+  border-radius: 2em;
+  border: none;
+  background: none;
+}
+
+.user-reveal-button:hover {
+  cursor: pointer;
+}
+
+.user-buttons {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  * {
+    flex: 1 1 auto;
+  }
+}
+
+.primary-button {
+  text-decoration: none;
+  padding: 0.2em;
+  font-size: 2rem;
+  margin: 10px;
+  border-radius: 0;
+
+  background-color: $primary-foreground;
+  color: $background-focus;
+  border: 1px solid $primary-foreground;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $primary-foreground-dark;
+    color: $background-focus-dark;
+    border-color: $primary-foreground-dark;
+  }
+}
+
+.primary-button:hover {
+  background-color: $background-focus;
+  color: $primary-foreground;
+  text-shadow: 0 0 0.2em $tertiary-foreground;
+  cursor: pointer;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+    color: $primary-foreground-dark;
+    text-shadow: 0 0 0.2em $tertiary-foreground-dark;
+  }
+}
+
+.primary-button:active {
+  transform: scale(0.98);
+  @media (prefers-color-scheme: light) {
+    box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.secondary-button {
+  text-decoration: none;
+  padding: 0.2em;
+  font-size: 2rem;
+  margin: 10px;
+  border-radius: 0;
+  cursor: pointer;
+
+  background-color: $background-focus;
+  color: $secondary-foreground;
+  border: 1px solid $secondary-foreground;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+    color: $secondary-foreground-dark;
+    border-color: $secondary-foreground-dark;
+  }
+}
+
+.secondary-button:hover {
+  background-color: $background-focus;
+  color: $primary-foreground;
+  text-shadow: 0 0 0.2em $tertiary-foreground;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+    color: $primary-foreground-dark;
+    text-shadow: 0 0 0.2em $tertiary-foreground-dark;
+  }
+}
+
+.secondary-button:active {
+  transform: scale(0.98);
+  @media (prefers-color-scheme: light) {
+    box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.tertiary-button {
+  text-decoration: none;
+  padding: 0.2em;
+  font-size: 1rem;
+  margin: 10px;
+  border-radius: 0;
+  cursor: pointer;
+
+  background-color: $background-focus;
+  color: $tertiary-foreground;
+  border: 1px solid $tertiary-foreground;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+    color: $tertiary-foreground-dark;
+    border-color: $tertiary-foreground-dark;
+  }
+}
+
+.tertiary-button:hover {
+  background-color: $background-focus;
+  color: $tertiary-foreground;
+  text-shadow: 0 0 0.2em $tertiary-foreground;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+    color: $tertiary-foreground-dark;
+    text-shadow: 0 0 0.2em $tertiary-foreground-dark;
+  }
+}
+
+.tertiary-button:active {
+  transform: scale(0.98);
+  @media (prefers-color-scheme: light) {
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.vault-entry-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  grid-gap: 10px;
+  margin: 3%;
+}
+
+.vault-entry {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+
+  border: 1px solid $primary-foreground;
+  background-color: $background-focus;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid $secondary-foreground-dark;
+    background-color: $background-focus-dark;
+  }
+
+  @media (prefers-color-scheme: light) {
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+
+#logo-container {
+  display: flex;
+  align-items: center;
+  @media (prefers-color-scheme: light) {
+    box-shadow: 2px 0px 5px 1px rgba(0, 0, 0, 0.2);
+  }
+  background-color: $background-focus;
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-focus-dark;
+  }
+}
+
+#logo {
+  font-family: $font-logo;
+  font-size: 3rem;
+  text-decoration: none;
+
+  color: $primary-foreground;
+  @media (prefers-color-scheme: dark) {
+    color: $primary-foreground-dark;
+  }
+}
+
+#logo-image {
+  padding: 0 1em;
+  height: 5em;
+  width: 5em;
+  margin: auto;
+}
+
+.dashboard-control-inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: right;
+}
+
+#dashboard-control {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1em 0;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: right;
+    box-sizing: border-box;
+    padding: 5px;
+
+    border: 1px solid $primary-foreground;
+    background-color: $background-focus;
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid $secondary-foreground-dark;
+      background-color: $background-focus-dark;
+    }
+
+    @media (prefers-color-scheme: light) {
+      box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    > * {
+      flex-grow: 0;
+    }
+  }
+}
+
+.generatePassword{
+  display: flex;
+  justify-content: center;
+  //color: $red;
+  //> button{
+  //  color: $red;
+  //}
+  > input {
+    width: 200px;
+  }
+}
+
+.entryBtns{
+  > button {
+  text-decoration: none;
+  padding: 0px;
+  // padding: 0.2em;
+  // font-size: .5rem;
+  // margin: 10px;
+  // border-radius: 0;
+  // cursor: pointer;
+
+  // background-color: $background-focus;
+  // color: $secondary-foreground;
+  // border: 1px solid $secondary-foreground;
+
+  }
+}
